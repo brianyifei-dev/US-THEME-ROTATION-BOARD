@@ -1,0 +1,632 @@
+[
+ {
+  "group": "Market & China",
+  "theme": "IBD 50",
+  "ticker": "FFTY",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Market & China",
+  "theme": "China Tech",
+  "ticker": "KWEB",
+  "long": "CWEB",
+  "short": ""
+ },
+ {
+  "group": "Market & China",
+  "theme": "China Large Cap",
+  "ticker": "FXI",
+  "long": "YINN",
+  "short": "YANG"
+ },
+ {
+  "group": "Market & China",
+  "theme": "CSI 300",
+  "ticker": "ASHR",
+  "long": "CHAU",
+  "short": ""
+ },
+ {
+  "group": "Market & China",
+  "theme": "US IPO Fund",
+  "ticker": "IPO",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Market & China",
+  "theme": "ALPHA Fund",
+  "ticker": "SPRX",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "AI & Innovation",
+  "ticker": "WTAI",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Quantum Computng",
+  "ticker": "QTUM",
+  "long": "QPUX",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Semiconductor",
+  "ticker": "SMH",
+  "long": "SOXL",
+  "short": "SOXS"
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "EUV Lithography & Photonics",
+  "ticker": "EUV",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Cloud Cmptng",
+  "ticker": "WCLD",
+  "long": "CLDL",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Cybersecurity",
+  "ticker": "CIBR",
+  "long": "UCYB",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Robotics & AI",
+  "ticker": "BOTZ",
+  "long": "UBOT",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Autonomous Tech & Robotics",
+  "ticker": "ARKQ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Memory - DRAM,NAND, HBM",
+  "ticker": "DRAM",
+  "long": "RAM",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Smart Transportation",
+  "ticker": "HAIL",
+  "long": "EVAV",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Connectivity",
+  "ticker": "SIXG",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Telecom",
+  "ticker": "XTL",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Software & Services",
+  "ticker": "XSW",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Fintech",
+  "ticker": "ARKF",
+  "long": "TARK",
+  "short": "SARK"
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Data Center & Digital Infras",
+  "ticker": "DTCR",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Drone",
+  "ticker": "DRNZ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Electrifiction -Passive, US Focused",
+  "ticker": "ZAP",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Electrifiction -Active, Global Focused",
+  "ticker": "VOLT",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Clean Edge Smart Grid Infras",
+  "ticker": "GRID",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Wind Energy",
+  "ticker": "FAN",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Solar Energy",
+  "ticker": "TAN",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Clean Energy",
+  "ticker": "ICLN",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Energy Storage & Materials",
+  "ticker": "IBAT",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Unclear Utilities + Miners",
+  "ticker": "NLR",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "Nuclear Energy Innovation",
+  "ticker": "NUKZ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "New Energy",
+  "theme": "High-beta Uranium Exposure",
+  "ticker": "URA",
+  "long": "URAA",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Metal & Minings",
+  "ticker": "XME",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Materials",
+  "ticker": "RSPM",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Metals & Mining Producers",
+  "ticker": "PICK",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Gold Miners (Sprott)",
+  "ticker": "SGDM",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Gold Miners",
+  "ticker": "GDX",
+  "long": "GDXU",
+  "short": "GDXD"
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Gold Miners Junior (Sprott)",
+  "ticker": "SGDJ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Gold Miners Junior",
+  "ticker": "GDXJ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Silver Miners",
+  "ticker": "SIL",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Silver Miners Junior",
+  "ticker": "SILJ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Silver Miners + Physical Silver",
+  "ticker": "SLVR",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Steel Miners",
+  "ticker": "SLX",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Coal Miners",
+  "ticker": "COAL",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Critical Metals",
+  "ticker": "SETM",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Rare Earth",
+  "ticker": "REMX",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Rare Earths Ex-China",
+  "ticker": "REXC",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Uranium Miners",
+  "ticker": "URNM",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Uranium Miners Junior",
+  "ticker": "URNJ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Lithium Miners",
+  "ticker": "LITP",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Nikel Miners",
+  "ticker": "NIKL",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Copper Miners (Sprott)",
+  "ticker": "COPP",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Copper Miners Junior",
+  "ticker": "COPJ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Metal & Mining",
+  "theme": "Active Gold & Silver Miners",
+  "ticker": "GBUG",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Construction & Transpotation",
+  "theme": "Home Construction",
+  "ticker": "ITB",
+  "long": "NAIL",
+  "short": ""
+ },
+ {
+  "group": "Construction & Transpotation",
+  "theme": "Transpotation",
+  "ticker": "XTN",
+  "long": "TPOR",
+  "short": ""
+ },
+ {
+  "group": "Financials",
+  "theme": "Large Banks",
+  "ticker": "KBE",
+  "long": "BNKU",
+  "short": ""
+ },
+ {
+  "group": "Financials",
+  "theme": "Regional Banks",
+  "ticker": "KRE",
+  "long": "DPST",
+  "short": ""
+ },
+ {
+  "group": "Financials",
+  "theme": "Capital Markets",
+  "ticker": "KCE",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Financials",
+  "theme": "Insurance",
+  "ticker": "KIE",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Fossil & Fuel",
+  "theme": "Oil & Gas Exploration and Production",
+  "ticker": "XOP",
+  "long": "GUSH",
+  "short": "DRIP"
+ },
+ {
+  "group": "Fossil & Fuel",
+  "theme": "Oil Equipment & Services",
+  "ticker": "IEZ",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Fossil & Fuel",
+  "theme": "Oil Services",
+  "ticker": "OIH",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Fossil & Fuel",
+  "theme": "Oil",
+  "ticker": "USO",
+  "long": "UCO",
+  "short": "SCO"
+ },
+ {
+  "group": "Fossil & Fuel",
+  "theme": "Natural Gas",
+  "ticker": "UNG",
+  "long": "BOIL",
+  "short": ""
+ },
+ {
+  "group": "Fossil & Fuel",
+  "theme": "Global Shipping - DRY",
+  "ticker": "BDRY",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Fossil & Fuel",
+  "theme": "Global Shipping - WET",
+  "ticker": "BWET",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Health",
+  "theme": "Health Care",
+  "ticker": "RSPH",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Health",
+  "theme": "Health Care Equipments",
+  "ticker": "XHE",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Health",
+  "theme": "Medical Breakthroughs",
+  "ticker": "SBIO",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Health",
+  "theme": "Health Tech",
+  "ticker": "HEAL",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Health",
+  "theme": "Cannabis Drug",
+  "ticker": "MSOS",
+  "long": "MSOX",
+  "short": ""
+ },
+ {
+  "group": "Health",
+  "theme": "Psychedelics Drug",
+  "ticker": "PSIL",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Health",
+  "theme": "Weight Loss Drug & Treatment",
+  "ticker": "THNR",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Crypto & Digital Asset",
+  "theme": "Crypto & Digital Asset",
+  "ticker": "BLOK",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Crypto & Digital Asset",
+  "theme": "Bitcoin Miners",
+  "ticker": "WGMI",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Crypto & Digital Asset",
+  "theme": "BTC Treasury Corp",
+  "ticker": "OWNB",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "S&P Aerospace & Defence",
+  "ticker": "XAR",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Space Tech",
+  "ticker": "UFO",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Space Exploration & Innovation",
+  "ticker": "ARKX",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Aerospace & Defense",
+  "ticker": "ITA",
+  "long": "DFEN",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "NATO Defense & Aero  Industry",
+  "ticker": "NATO",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Europe Aerospace & Defense",
+  "ticker": "EUAD",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Korea Defense Industry",
+  "ticker": "KDEF",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Next-Gen Defense Tech",
+  "ticker": "SHLD",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Airliners",
+  "ticker": "JETS",
+  "long": "JETU",
+  "short": "JETD"
+ },
+ {
+  "group": "Space & Defence Techs",
+  "theme": "Travel Tech",
+  "ticker": "AWAY",
+  "long": "FLYU",
+  "short": "JETD"
+ },
+ {
+  "group": "Others",
+  "theme": "Republican Congress Trading",
+  "ticker": "GOP",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Others",
+  "theme": "Democratic Congress Trading",
+  "ticker": "NANC",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Others",
+  "theme": "Meme Stock",
+  "ticker": "MEME",
+  "long": "",
+  "short": ""
+ }
+]

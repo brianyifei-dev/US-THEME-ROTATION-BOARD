@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>US Theme Rotation Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117; --panel:#131a23; --panel2:#0f151d; --line:#1f2a37;
+  --ink:#c9d4e0; --dim:#5f6f82; --head:#8ea2b8;
+  --amber:#e8b34b; --up:#3ecf8e; --dn:#f0655a; --flat:#5f6f82;
+  --mono:'IBM Plex Mono',monospace; --sans:'Archivo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:12.5px;padding:0 0 60px}
+.wrap{max-width:1480px;margin:0 auto;padding:0 20px}
+
+header{border-bottom:1px solid var(--line);padding:26px 0 18px;margin-bottom:22px}
+.hrow{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px}
+h1{font-family:var(--sans);font-weight:800;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:#e8eef5}
+h1 span{color:var(--amber)}
+.meta{color:var(--dim);font-size:11.5px}
+.meta b{color:var(--head);font-weight:500}
+
+/* leaderboards */
+.boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-bottom:26px}
+.board{background:var(--panel);border:1px solid var(--line);padding:14px 16px 12px}
+.board h2{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--head);margin-bottom:10px}
+.board h2 em{color:var(--amber);font-style:normal}
+.lrow{display:grid;grid-template-columns:16px 1fr 62px;align-items:center;gap:8px;padding:3.5px 0}
+.lrow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+.lrow .rk{color:var(--dim);font-size:11px}
+.lrow .val{text-align:right;font-weight:600}
+.bar{height:3px;background:var(--panel2);grid-column:2/4;position:relative;margin-bottom:2px}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--up)}
+.bar i.neg{background:var(--dn)}
+
+/* group tables */
+.grp{margin-bottom:26px}
+.grp>h2{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);padding:0 0 6px;border-bottom:1px solid var(--line);margin-bottom:0}
+table{width:100%;border-collapse:collapse}
+th{font-family:var(--sans);font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-align:right;padding:7px 8px 5px;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+th.l{text-align:left}
+th.sorted{color:var(--amber)}
+td{padding:5px 8px;text-align:right;border-bottom:1px solid #151d27;white-space:nowrap}
+td.l{text-align:left}
+tr:hover td{background:#161f2a}
+.tk{color:#e8eef5;font-weight:600}
+.th-name{color:var(--head);font-size:12px}
+.pair{color:var(--dim);font-size:10.5px}
+.pair b{color:var(--up);font-weight:500}
+.pair s{color:var(--dn);font-weight:500;text-decoration:none}
+.up{color:var(--up)} .dn{color:var(--dn)} .fl{color:var(--flat)}
+.gate-y{color:var(--up);font-weight:600} .gate-n{color:var(--dn)}
+.sts{display:inline-block;min-width:44px;padding:1px 5px;background:var(--panel2);border:1px solid var(--line)}
+.sts.hot{border-color:var(--amber);color:var(--amber)}
+.na{color:#2e3a48}
+.ddc{position:relative;min-width:96px}
+.ddbar{position:absolute;right:0;top:15%;bottom:15%;background:linear-gradient(90deg,rgba(240,101,90,.10),rgba(240,101,90,.42));border-right:2px solid var(--dn);pointer-events:none}
+.ddbar.nearhigh{border-right-color:var(--amber);background:linear-gradient(90deg,rgba(232,179,75,.08),rgba(232,179,75,.35))}
+.ddv{position:relative;z-index:1}
+.rsc{position:relative;min-width:104px}
+.rsc::before{content:'';position:absolute;left:50%;top:10%;bottom:10%;width:1px;background:var(--line)}
+.rsbar{position:absolute;top:22%;bottom:22%;pointer-events:none}
+.rsbar.pos{left:50%;background:linear-gradient(90deg,rgba(62,207,142,.4),rgba(62,207,142,.12))}
+.rsbar.neg{right:50%;background:linear-gradient(90deg,rgba(240,101,90,.12),rgba(240,101,90,.4))}
+.rsv{position:relative;z-index:1}
+.mai{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;vertical-align:middle}
+.mai.up{border-bottom:8px solid var(--up)}
+.mai.dn{border-top:8px solid var(--dn)}
+td.mac{text-align:center;min-width:44px}
+tr.bands th{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);text-align:center;padding:6px 4px 4px;border-bottom:none;cursor:default;background:transparent}
+tr.bands th.blank{border:none}
+th.secL, td.secL{border-left:2px solid var(--line);padding-left:14px}
+td.trend, th.trend{background:rgba(232,179,75,.035)}
+tr:hover td.trend{background:rgba(232,179,75,.08)}
+.cell-heat{position:relative}
+footer{color:var(--dim);font-size:11px;margin-top:34px;border-top:1px solid var(--line);padding-top:14px;line-height:1.7}
+@media(max-width:900px){ .hidem{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="hrow">
+    <h1>US Theme <span>Rotation</span> Board</h1>
+    <div class="meta">Data as of <b id="asof">—</b> US close &nbsp;·&nbsp; built <b id="gen">—</b> UTC &nbsp;·&nbsp; refreshed weekdays ~08:15 Sydney</div>
+  </div>
+</header>
+
+<div class="boards" id="boards"></div>
+<div id="groups"></div>
+
+<footer>
+  RS_STS = percentile rank of RS-line (close/SPY) within trailing 63 sessions · %52H fixed sign: 0 = at high, negative = below ·
+  Gates: 6&gt;50 = SMA6 above SMA50, 21&gt;50 = SMA21 above SMA50 · L/S = leveraged pair tickers · Click column headers to sort within group.
+</footer>
+</div>
+
+<script>
+const pct = v => v==null ? '<span class="na">·</span>'
+  : `<span class="${v>0.0005?'up':v<-0.0005?'dn':'fl'}">${(v*100).toFixed(2)}%</span>`;
+const dd = v => {           // % off 52wk high: 0 = at high (amber tick), deeper = longer red bar
+  if(v==null) return '<span class="na">\u00b7</span>';
+  const depth = Math.min(Math.abs(Math.min(v,0)), .60)/.60*100;   // cap at -60%
+  const near = v > -0.03;
+  return `<span class="ddbar ${near?'nearhigh':''}" style="width:${Math.max(depth,near?4:2)}%"></span>`
+       + `<span class="ddv ${v>=-0.0005?'up':'dn'}">${(v*100).toFixed(1)}%</span>`;
+};
+const mai = v => {          // vs-MA icon: green up-triangle above, red down below; hover for exact %
+  if(v==null) return '<span class="na">\u00b7</span>';
+  const op = (0.45 + Math.min(Math.abs(v),.08)/.08*0.55).toFixed(2);
+  const cls = v>=0 ? 'up' : 'dn';
+  return `<span class="mai ${cls}" style="opacity:${op}" title="${(v*100).toFixed(2)}%"></span>`;
+};
+const rsb = v => {          // 1M RS vs SPY: diverging bar from center line, cap +/-25%
+  if(v==null) return '<span class="na">\u00b7</span>';
+  const w = Math.min(Math.abs(v), .25)/.25*50;
+  return `<span class="rsbar ${v>=0?'pos':'neg'}" style="width:${Math.max(w,1)}%"></span>`
+       + `<span class="rsv ${v>=0?'up':'dn'}">${(v*100).toFixed(1)}%</span>`;
+};
+const pct1 = v => v==null ? '<span class="na">·</span>'
+  : `<span class="${v>0?'up':v<0?'dn':'fl'}">${(v*100).toFixed(1)}%</span>`;
+
+const COLS = [
+ ['ticker','Ticker'],['theme','Theme'],['price','Price'],['off52h','%52H'],
+ ['pair','L / S'],['rs_sts','RS STS'],['rs_1m','1M RS'],['intraday','Intra'],['daily','Daily'],
+ ['roll_w','Roll W'],['roll_m','Roll M'],['ytd','YTD'],['w1','1W'],['m1','1M'],['y1','1Y'],
+ ['vs10','v10MA'],['vs21','v21MA'],['vs50','v50MA'],['g6_50','6>50'],['g21_50','21>50']
+];
+
+fetch('snapshot.json').then(r=>r.json()).then(d=>{
+  document.getElementById('asof').textContent = d.as_of;
+  document.getElementById('gen').textContent = d.generated_utc ?? d.as_of;
+  const rows = d.rows;  // keep pending tickers visible with placeholder dots
+
+  // Top-5 leaderboards
+  const boards = [['Daily','daily'],['Rolling Weekly','roll_w'],['Rolling Monthly','roll_m']];
+  document.getElementById('boards').innerHTML = boards.map(([label,key])=>{
+    const top = [...rows].filter(r=>r[key]!=null && r.price!=null).sort((a,b)=>b[key]-a[key]).slice(0,5);
+    const max = Math.max(...top.map(r=>Math.abs(r[key])),1e-9);
+    return `<div class="board"><h2>Top 5 · <em>${label}</em></h2>` + top.map((r,i)=>
+      `<div class="lrow"><span class="rk">${i+1}</span><span class="nm">${r.theme} <span class="pair">${r.ticker}</span></span><span class="val ${r[key]>0?'up':'dn'}">${(r[key]*100).toFixed(2)}%</span></div>
+       <div class="bar"><i class="${r[key]<0?'neg':''}" style="width:${Math.abs(r[key])/max*100}%"></i></div>`
+    ).join('') + `</div>`;
+  }).join('');
+
+  // Group tables
+  const order=[]; const byG={};
+  rows.forEach(r=>{ if(!byG[r.group]){byG[r.group]=[];order.push(r.group);} byG[r.group].push(r); });
+
+  document.getElementById('groups').innerHTML = order.map((g,gi)=>{
+    return `<section class="grp" data-g="${gi}"><h2>${g}</h2><table>
+      <thead>
+      <tr class="bands"><th colspan="5" class="blank"></th><th colspan="4">Relative Strength (v. SPY)</th><th colspan="6" class="secL">Performance</th><th colspan="5" class="secL trend">Trend Indicators</th></tr>
+      <tr>${COLS.map(([k,l],ci)=>{
+        const secStart = (k==='rs_sts'||k==='roll_w'||k==='vs10');
+        const trend = ['vs10','vs21','vs50','g6_50','g21_50'].includes(k);
+        return `<th class="${ci<2?'l':''} ${['ytd','y1','w1','m1'].includes(k)?'hidem':''} ${secStart&&k!=='rs_sts'?'secL':''} ${trend?'trend':''}" data-k="${k}">${l}</th>`;
+      }).join('')}</tr></thead>
+      <tbody></tbody></table></section>`;
+  }).join('');
+
+  function renderBody(g, sortKey, dir){
+    const sec=[...document.querySelectorAll('.grp')].find(s=>s.querySelector('h2').textContent===g);
+    let rs=[...byG[g]];
+    if(sortKey && sortKey!=='ticker' && sortKey!=='theme' && sortKey!=='pair')
+      rs.sort((a,b)=>((b[sortKey]??-1e9)-(a[sortKey]??-1e9))*dir);
+    sec.querySelector('tbody').innerHTML = rs.map(r=>{
+      const sts = r.rs_sts==null?'<span class="na">·</span>'
+        :`<span class="sts ${r.rs_sts>=0.9?'hot':''}">${(r.rs_sts*100).toFixed(0)}</span>`;
+      const pair = (r.long||r.short)?`<span class="pair">${r.long?'<b>'+r.long+'</b>':''}${r.long&&r.short?' / ':''}${r.short?'<s>'+r.short+'</s>':''}</span>`:'<span class="na">·</span>';
+      return `<tr>
+        <td class="l tk">${r.ticker}</td>
+        <td class="l th-name">${r.theme}</td>
+        <td>${r.price?.toFixed(2)??'·'}</td>
+        <td class="ddc">${dd(r.off52h)}</td>
+        <td>${pair}</td>
+        <td>${sts}</td>
+        <td class="rsc">${rsb(r.rs_1m)}</td>
+        <td>${pct(r.intraday)}</td><td>${pct(r.daily)}</td>
+        <td class="secL">${pct(r.roll_w)}</td><td>${pct(r.roll_m)}</td>
+        <td class="hidem">${pct1(r.ytd)}</td><td class="hidem">${pct(r.w1)}</td>
+        <td class="hidem">${pct(r.m1)}</td><td class="hidem">${pct1(r.y1)}</td>
+        <td class="mac secL trend">${mai(r.vs10)}</td><td class="mac trend">${mai(r.vs21)}</td><td class="mac trend">${mai(r.vs50)}</td>
+        <td class="trend ${r.g6_50==='YES'?'gate-y':'gate-n'}">${r.g6_50??'·'}</td>
+        <td class="trend ${r.g21_50==='YES'?'gate-y':'gate-n'}">${r.g21_50??'·'}</td>
+      </tr>`;
+    }).join('');
+  }
+  order.forEach(g=>renderBody(g,null,1));
+
+  // header sort per group
+  document.querySelectorAll('.grp').forEach(sec=>{
+    const g = sec.querySelector('h2').textContent;
+    sec.querySelectorAll('th').forEach(th=>{
+      th.addEventListener('click',()=>{
+        const k=th.dataset.k;
+        const dir = th.classList.contains('sorted') && th.dataset.dir==='1' ? -1 : 1;
+        sec.querySelectorAll('th').forEach(x=>x.classList.remove('sorted'));
+        th.classList.add('sorted'); th.dataset.dir=dir;
+        renderBody(g,k,dir);
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>
