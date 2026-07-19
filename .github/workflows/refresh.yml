@@ -1,0 +1,27 @@
+name: Refresh theme board
+
+on:
+  schedule:
+    - cron: '15 21 * * 2-6'
+    - cron: '15 22 * * 2-6'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install yfinance pandas pandas-datareader
+      - run: python scripts/build_data.py
+      - name: Commit snapshot
+        run: |
+          git config user.name  "theme-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add docs/snapshot.json
+          git diff --cached --quiet || git commit -m "snapshot $(date -u +%F)"
+          git push
