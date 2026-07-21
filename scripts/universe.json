@@ -43,20 +43,6 @@
  },
  {
   "group": "Emerging Tech",
-  "theme": "AI & Innovation",
-  "ticker": "WTAI",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Emerging Tech",
-  "theme": "Quantum Computng",
-  "ticker": "QTUM",
-  "long": "QPUX",
-  "short": ""
- },
- {
-  "group": "Emerging Tech",
   "theme": "Semiconductor",
   "ticker": "SMH",
   "long": "SOXL",
@@ -71,34 +57,6 @@
  },
  {
   "group": "Emerging Tech",
-  "theme": "Cloud Cmptng",
-  "ticker": "WCLD",
-  "long": "CLDL",
-  "short": ""
- },
- {
-  "group": "Emerging Tech",
-  "theme": "Cybersecurity",
-  "ticker": "CIBR",
-  "long": "UCYB",
-  "short": ""
- },
- {
-  "group": "Emerging Tech",
-  "theme": "Robotics & AI",
-  "ticker": "BOTZ",
-  "long": "UBOT",
-  "short": ""
- },
- {
-  "group": "Emerging Tech",
-  "theme": "Autonomous Tech & Robotics",
-  "ticker": "ARKQ",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Emerging Tech",
   "theme": "Memory - DRAM,NAND, HBM",
   "ticker": "DRAM",
   "long": "RAM",
@@ -106,9 +64,44 @@
  },
  {
   "group": "Emerging Tech",
-  "theme": "Smart Transportation",
-  "ticker": "HAIL",
-  "long": "EVAV",
+  "theme": "AI & Innovation",
+  "ticker": "WTAI",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Quantum Computng",
+  "ticker": "QTUM",
+  "long": "QPUX",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Cloud Cmptng",
+  "ticker": "WCLD",
+  "long": "CLDL",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Software & Services",
+  "ticker": "XSW",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Data Center & Digital Infras",
+  "ticker": "DTCR",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Cybersecurity",
+  "ticker": "CIBR",
+  "long": "UCYB",
   "short": ""
  },
  {
@@ -127,10 +120,87 @@
  },
  {
   "group": "Emerging Tech",
-  "theme": "Software & Services",
-  "ticker": "XSW",
+  "theme": "Robotics & AI",
+  "ticker": "BOTZ",
+  "long": "UBOT",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Autonomous Tech & Robotics",
+  "ticker": "ARKQ",
   "long": "",
   "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Next-Gen Defense Tech",
+  "ticker": "SHLD",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Defence Tech (Korea)",
+  "ticker": "KDEF",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "S&P Aerospace & Defence",
+  "ticker": "XAR",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Aerospace & Defense",
+  "ticker": "ITA",
+  "long": "DFEN",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "NATO Defense & Aero  Industry",
+  "ticker": "NATO",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Europe Aerospace & Defense",
+  "ticker": "EUAD",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Space Tech",
+  "ticker": "UFO",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Space Exploration & Innovation",
+  "ticker": "ARKX",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Airliners",
+  "ticker": "JETS",
+  "long": "JETU",
+  "short": "JETD"
+ },
+ {
+  "group": "Emerging Tech",
+  "theme": "Travel Tech",
+  "ticker": "AWAY",
+  "long": "FLYU",
+  "short": "JETD"
  },
  {
   "group": "Emerging Tech",
@@ -138,20 +208,6 @@
   "ticker": "ARKF",
   "long": "TARK",
   "short": "SARK"
- },
- {
-  "group": "Emerging Tech",
-  "theme": "Data Center & Digital Infras",
-  "ticker": "DTCR",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Emerging Tech",
-  "theme": "Drone",
-  "ticker": "DRNZ",
-  "long": "",
-  "short": ""
  },
  {
   "group": "New Energy",
@@ -378,6 +434,86 @@
   "short": ""
  },
  {
+  "group": "Agriculture",
+  "theme": "Agriculture Broad",
+  "ticker": "DBA",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Agriculture",
+  "theme": "Agriculture Broad (iShares)",
+  "ticker": "VEGI",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Agriculture",
+  "theme": "Agribusiness",
+  "ticker": "MOO",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Agriculture",
+  "theme": "Wheat",
+  "ticker": "WEAT",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Agriculture",
+  "theme": "Corn",
+  "ticker": "CORN",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Agriculture",
+  "theme": "Sugar",
+  "ticker": "CANE",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Agriculture",
+  "theme": "Soybeans",
+  "ticker": "SOYB",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Agriculture",
+  "theme": "Timber & Forestry",
+  "ticker": "WOOD",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
   "group": "Construction & Transpotation",
   "theme": "Home Construction",
   "ticker": "ITB",
@@ -389,6 +525,20 @@
   "theme": "Transpotation",
   "ticker": "XTN",
   "long": "TPOR",
+  "short": ""
+ },
+ {
+  "group": "Construction & Transpotation",
+  "theme": "Global Shipping - Dry",
+  "ticker": "BDRY",
+  "long": "",
+  "short": ""
+ },
+ {
+  "group": "Construction & Transpotation",
+  "theme": "Global Shipping - Wet",
+  "ticker": "BWET",
+  "long": "",
   "short": ""
  },
  {
@@ -455,20 +605,6 @@
   "short": ""
  },
  {
-  "group": "Fossil & Fuel",
-  "theme": "Global Shipping - DRY",
-  "ticker": "BDRY",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Fossil & Fuel",
-  "theme": "Global Shipping - WET",
-  "ticker": "BWET",
-  "long": "",
-  "short": ""
- },
- {
   "group": "Health",
   "theme": "Health Care",
   "ticker": "RSPH",
@@ -519,6 +655,36 @@
  },
  {
   "group": "Crypto & Digital Asset",
+  "theme": "Crypto Diversified (Grayscale)",
+  "ticker": "GDLC",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Crypto & Digital Asset",
+  "theme": "Bitcoin ETF (BlackRock)",
+  "ticker": "IBIT",
+  "long": "BITX",
+  "short": "SBIT",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Crypto & Digital Asset",
+  "theme": "Ethereum ETF (BlackRock)",
+  "ticker": "ETHA",
+  "long": "ETHU",
+  "short": "ETHD",
+  "mcap": null,
+  "exp": null,
+  "yield": null
+ },
+ {
+  "group": "Crypto & Digital Asset",
   "theme": "Crypto & Digital Asset",
   "ticker": "BLOK",
   "long": "",
@@ -537,76 +703,6 @@
   "ticker": "OWNB",
   "long": "",
   "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "S&P Aerospace & Defence",
-  "ticker": "XAR",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Space Tech",
-  "ticker": "UFO",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Space Exploration & Innovation",
-  "ticker": "ARKX",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Aerospace & Defense",
-  "ticker": "ITA",
-  "long": "DFEN",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "NATO Defense & Aero  Industry",
-  "ticker": "NATO",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Europe Aerospace & Defense",
-  "ticker": "EUAD",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Korea Defense Industry",
-  "ticker": "KDEF",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Next-Gen Defense Tech",
-  "ticker": "SHLD",
-  "long": "",
-  "short": ""
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Airliners",
-  "ticker": "JETS",
-  "long": "JETU",
-  "short": "JETD"
- },
- {
-  "group": "Space & Defence Techs",
-  "theme": "Travel Tech",
-  "ticker": "AWAY",
-  "long": "FLYU",
-  "short": "JETD"
  },
  {
   "group": "Others",
@@ -628,5 +724,15 @@
   "ticker": "MEME",
   "long": "",
   "short": ""
+ },
+ {
+  "group": "Others",
+  "theme": "Carbon Credits",
+  "ticker": "KRBN",
+  "long": "",
+  "short": "",
+  "mcap": null,
+  "exp": null,
+  "yield": null
  }
 ]
