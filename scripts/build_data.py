@@ -108,6 +108,18 @@ def main():
         except KeyError:
             close = open_ = pd.Series(dtype=float)
         if close.dropna().empty:
+            # retry 1: individual yfinance call (batch downloads drop tickers sporadically)
+            try:
+                import yfinance as yf
+                solo = yf.download(t, period="2y", interval="1d",
+                                   auto_adjust=True, progress=False)
+                if not solo.empty:
+                    close = solo["Close"].squeeze()
+                    open_ = solo["Open"].squeeze()
+            except Exception:
+                pass
+        if close.dropna().empty:
+            # retry 2: Stooq fallback
             sq = stooq_fallback(t)
             if sq is not None and not sq.empty:
                 close, open_ = sq["Close"], sq["Open"]
