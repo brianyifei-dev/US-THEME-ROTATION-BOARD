@@ -40,7 +40,11 @@ h1 span{color:var(--amber)}
 /* group tables */
 .grp{margin-bottom:26px}
 .grp>h2{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);padding:0 0 6px;border-bottom:1px solid var(--line);margin-bottom:0}
-table{width:100%;border-collapse:collapse}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+col.c-tk{width:64px} col.c-th{width:172px} col.c-pr{width:66px} col.c-52{width:100px}
+col.c-pair{width:118px} col.c-sts{width:58px} col.c-rs1m{width:108px} col.c-n{width:66px}
+col.c-ma{width:46px} col.c-gate{width:52px}
+td,th{overflow:hidden;text-overflow:ellipsis}
 th{font-family:var(--sans);font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-align:right;padding:7px 8px 5px;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
 th.l{text-align:left}
 th.sorted{color:var(--amber)}
@@ -69,7 +73,7 @@ tr:hover td{background:#161f2a}
 .rsv{position:relative;z-index:1}
 .mai{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;vertical-align:middle}
 .mai.up{border-bottom:8px solid var(--up)}
-.mai.dn{border-top:8px solid var(--dn)}
+.mai.dn{border-top:8px solid transparent}
 td.mac{text-align:center;min-width:44px}
 tr.bands th{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);text-align:center;padding:6px 4px 4px;border-bottom:none;cursor:default;background:transparent}
 tr.bands th.blank{border:none}
@@ -126,7 +130,7 @@ const pct1 = v => v==null ? '<span class="na">·</span>'
 
 const COLS = [
  ['ticker','Ticker'],['theme','Theme'],['price','Price'],['off52h','%52H'],
- ['pair','L / S'],['rs_sts','RS STS'],['rs_1m','1M RS'],['intraday','Intra'],['daily','Daily'],
+ ['pair','L / S'],['rs_sts','RS Rtg'],['rs_1m','1M RS'],['intraday','Intra'],['daily','Daily'],
  ['roll_w','Roll W'],['roll_m','Roll M'],['ytd','YTD'],['w1','1W'],['m1','1M'],['y1','1Y'],
  ['vs10','v10MA'],['vs21','v21MA'],['vs50','v50MA'],['g6_50','6>50'],['g21_50','21>50']
 ];
@@ -157,6 +161,7 @@ fetch('snapshot.json').then(r=>r.json()).then(d=>{
 
   document.getElementById('groups').innerHTML = order.map((g,gi)=>{
     return `<section class="grp" data-g="${gi}"><h2>${g}</h2><table>
+      <colgroup><col class="c-tk"><col class="c-th"><col class="c-pr"><col class="c-52"><col class="c-pair"><col class="c-sts"><col class="c-rs1m"><col class="c-n"><col class="c-n"><col class="c-n"><col class="c-n"><col class="c-n hidem"><col class="c-n hidem"><col class="c-n hidem"><col class="c-n hidem"><col class="c-ma"><col class="c-ma"><col class="c-ma"><col class="c-gate"><col class="c-gate"></colgroup>
       <thead>
       <tr class="bands"><th colspan="5" class="blank"></th><th colspan="4">Relative Strength (v. SPY)</th><th colspan="6" class="secL">Performance</th><th colspan="5" class="secL trend">Trend Indicators</th></tr>
       <tr>${COLS.map(([k,l],ci)=>{
@@ -173,8 +178,9 @@ fetch('snapshot.json').then(r=>r.json()).then(d=>{
     if(sortKey && sortKey!=='ticker' && sortKey!=='theme' && sortKey!=='pair')
       rs.sort((a,b)=>((b[sortKey]??-1e9)-(a[sortKey]??-1e9))*dir);
     sec.querySelector('tbody').innerHTML = rs.map(r=>{
-      const sts = r.rs_sts==null?'<span class="na">·</span>'
-        :`<span class="sts ${r.rs_sts>=0.9?'hot':''}">${(r.rs_sts*100).toFixed(0)}</span>`;
+      const rating = r.rs_rating ?? (r.rs_sts!=null ? Math.round(r.rs_sts*98+1) : null);
+      const sts = rating==null?'<span class="na">·</span>'
+        :`<span class="sts ${rating>=90?'hot':''}">${rating}</span>`;
       const pair = (r.long||r.short)?`<span class="pair">${r.long?'<b>'+r.long+'</b>':''}${r.long&&r.short?' / ':''}${r.short?'<s>'+r.short+'</s>':''}</span>`:'<span class="na">·</span>';
       return `<tr>
         <td class="l tk">${r.ticker}</td>
