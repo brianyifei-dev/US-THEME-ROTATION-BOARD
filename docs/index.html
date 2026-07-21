@@ -17,7 +17,10 @@
 body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:12.5px;padding:0 0 60px}
 .wrap{max-width:1480px;margin:0 auto;padding:0 20px}
 
-header{border-bottom:1px solid var(--line);padding:26px 0 18px;margin-bottom:22px}
+header{border-bottom:1px solid var(--line);padding:26px 0 12px;margin-bottom:22px;position:sticky;top:0;background:var(--bg);z-index:5}
+.jnav{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.jnav a{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--head);text-decoration:none;border:1px solid var(--line);padding:4px 10px;background:var(--panel)}
+.jnav a:hover{color:var(--amber);border-color:var(--amber)}
 .hrow{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px}
 h1{font-family:var(--sans);font-weight:800;font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:#e8eef5}
 h1 span{color:var(--amber)}
@@ -92,6 +95,7 @@ footer{color:var(--dim);font-size:11px;margin-top:34px;border-top:1px solid var(
     <h1>US Theme <span>Rotation</span> Board</h1>
     <div class="meta">Data as of <b id="asof">—</b> US close &nbsp;·&nbsp; updated <b id="gen">—</b></div>
   </div>
+  <nav class="jnav" id="jnav"></nav>
 </header>
 
 <div class="boards" id="boards"></div>
@@ -201,6 +205,11 @@ fetch('snapshot.json').then(r=>r.json()).then(d=>{
     }).join('');
   }
   order.forEach(g=>renderBody(g,null,1));
+
+  // jump nav
+  document.getElementById('jnav').innerHTML = order.map((g,gi)=>
+    `<a href="#g${gi}">${g}</a>`).join('');
+  document.querySelectorAll('.grp').forEach((sec,i)=>sec.id='g'+i);
 
   // header sort per group
   document.querySelectorAll('.grp').forEach(sec=>{
