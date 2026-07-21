@@ -85,6 +85,15 @@ def metrics_for(close: pd.Series, open_: pd.Series, spy: pd.Series) -> dict:
         m["rs_1m"] = float((c / close.iloc[-22]) / (spy.iloc[-1] / spy.iloc[-22]) - 1)
     else:
         m["rs_1m"] = None
+    # IBD-style RS raw score: weighted excess return vs SPY at 3/6/9/12M (cross-ranked after loop)
+    def xret(n):
+        sc = close.iloc[-n] if len(close) >= n else None
+        ss = spy.iloc[-n] if len(spy) >= n else None
+        return float((c/sc)/(spy.iloc[-1]/ss)-1) if sc and ss else None
+    q3,q6,q9,q12 = xret(63),xret(126),xret(189),xret(252)
+    parts = [(q3,0.4),(q6,0.2),(q9,0.2),(q12,0.2)]
+    valid = [(v,w) for v,w in parts if v is not None]
+    m["rs_raw"] = sum(v*w for v,w in valid)/sum(w for _,w in valid) if valid else None
     return m
 
 
@@ -105,6 +114,14 @@ def main():
         m = metrics_for(close, open_, spy)
         rows.append({**u, **m})
         # keys: group, theme, ticker, long, short + metrics
+
+    # cross-sectional IBD-style RS Rating (1-99) across full universe
+    scores = [(i, r["rs_raw"]) for i, r in enumerate(rows) if r.get("rs_raw") is not None]
+    if scores:
+        ranked = sorted(scores, key=lambda x: x[1])
+        n = len(ranked)
+        for rank, (i, _) in enumerate(ranked):
+            rows[i]["rs_rating"] = max(1, min(99, round((rank / (n - 1)) * 98 + 1))) if n > 1 else 50
 
     as_of = str(spy.index[-1].date())
     OUT.write_text(json.dumps({"as_of": as_of,
