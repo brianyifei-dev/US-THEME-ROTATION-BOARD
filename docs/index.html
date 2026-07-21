@@ -86,7 +86,7 @@ footer{color:var(--dim);font-size:11px;margin-top:34px;border-top:1px solid var(
 <header>
   <div class="hrow">
     <h1>US Theme <span>Rotation</span> Board</h1>
-    <div class="meta">Data as of <b id="asof">—</b> US close &nbsp;·&nbsp; built <b id="gen">—</b> UTC &nbsp;·&nbsp; refreshed weekdays ~08:15 Sydney</div>
+    <div class="meta">Data as of <b id="asof">—</b> US close &nbsp;·&nbsp; updated <b id="gen">—</b></div>
   </div>
 </header>
 
@@ -133,7 +133,11 @@ const COLS = [
 
 fetch('snapshot.json').then(r=>r.json()).then(d=>{
   document.getElementById('asof').textContent = d.as_of;
-  document.getElementById('gen').textContent = d.generated_utc ?? d.as_of;
+  try {
+    const dt = new Date((d.generated_utc ?? '') + 'Z');
+    document.getElementById('gen').textContent = isNaN(dt) ? (d.generated_utc ?? d.as_of)
+      : dt.toLocaleString('en-AU', {timeZone:'Australia/Sydney', day:'numeric', month:'short', hour:'numeric', minute:'2-digit', hour12:true}) + ' Sydney';
+  } catch(e) { document.getElementById('gen').textContent = d.generated_utc ?? d.as_of; }
   const rows = d.rows;  // keep pending tickers visible with placeholder dots
 
   // Top-5 leaderboards
