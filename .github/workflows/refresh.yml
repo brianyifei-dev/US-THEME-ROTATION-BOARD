@@ -3,9 +3,6 @@ name: Refresh theme board
 
 on:
   schedule:
-    # 21:15 UTC = ~07:15 Sydney (US on EDT); 22:15 UTC covers US winter (EST).
-    # Mon-Fri UTC: US close (20:00/21:00 UTC) falls on the SAME UTC weekday,
-    # so 1-5 is correct — the earlier 2-6 filter skipped Monday's session.
     - cron: '15 21 * * 1-5'
     - cron: '15 22 * * 1-5'
   workflow_dispatch: {}
