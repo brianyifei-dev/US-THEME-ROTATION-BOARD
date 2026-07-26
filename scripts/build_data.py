@@ -149,8 +149,16 @@ def fetch_fund_meta(t: str) -> dict:
               or info.get("annualReportExpenseRatio")
               or info.get("expenseRatio"))
         if er:
-            # Yahoo mixes percent (0.40) and fraction (0.004) — normalise to fraction
-            out["exp"] = float(er) / 100 if er > 0.5 else float(er)
+            er = float(er)
+            # Yahoo returns these fields in PERCENT units (0.09 == 0.09%), verified
+            # against published iShares fact sheets. Convert to a fraction.
+            frac = er / 100.0
+            # Sanity band: real expense ratios span ~0.01% to ~5%. If dividing puts
+            # the value outside that band, the source was already a fraction.
+            if not (0.00005 <= frac <= 0.05):
+                frac = er
+            if 0.00005 <= frac <= 0.05:
+                out["exp"] = round(frac, 6)
     except Exception:
         pass
     return out
