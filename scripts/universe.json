@@ -1,738 +1,1396 @@
 [
  {
-  "group": "Market & China",
-  "theme": "IBD 50",
-  "ticker": "FFTY",
+  "tab": "macro",
+  "group": "US Treasury Curve",
+  "ticker": "SGOV",
+  "theme": "0-3 Month T-Bill",
+  "long": "",
+  "short": "",
+  "duration": 0.1,
+  "curve_order": 0
+ },
+ {
+  "tab": "macro",
+  "group": "US Treasury Curve",
+  "ticker": "SHY",
+  "theme": "1-3 Year Treasury",
+  "long": "",
+  "short": "",
+  "duration": 1.8,
+  "curve_order": 1
+ },
+ {
+  "tab": "macro",
+  "group": "US Treasury Curve",
+  "ticker": "IEI",
+  "theme": "3-7 Year Treasury",
+  "long": "",
+  "short": "",
+  "duration": 4.4,
+  "curve_order": 2
+ },
+ {
+  "tab": "macro",
+  "group": "US Treasury Curve",
+  "ticker": "IEF",
+  "theme": "7-10 Year Treasury",
+  "long": "",
+  "short": "",
+  "duration": 7.4,
+  "curve_order": 3
+ },
+ {
+  "tab": "macro",
+  "group": "US Treasury Curve",
+  "ticker": "TLH",
+  "theme": "10-20 Year Treasury",
+  "long": "",
+  "short": "",
+  "duration": 11.5,
+  "curve_order": 4
+ },
+ {
+  "tab": "macro",
+  "group": "US Treasury Curve",
+  "ticker": "TLT",
+  "theme": "20+ Year Treasury",
+  "long": "",
+  "short": "",
+  "duration": 16.5,
+  "curve_order": 5
+ },
+ {
+  "tab": "macro",
+  "group": "US Treasury Curve",
+  "ticker": "TIP",
+  "theme": "TIPS (Inflation-Linked)",
+  "long": "",
+  "short": "",
+  "duration": 6.5,
+  "curve_order": 6
+ },
+ {
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "SPY",
+  "theme": "S&P 500",
+  "long": "SPXL",
+  "short": "SPXU"
+ },
+ {
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "QQQ",
+  "theme": "Nasdaq 100",
+  "long": "TQQQ",
+  "short": "SQQQ"
+ },
+ {
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "IWM",
+  "theme": "Russel 2000",
+  "long": "TNA",
+  "short": "TZA"
+ },
+ {
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "MAGS",
+  "theme": "Mag 7",
+  "long": "FNGG FNGU",
+  "short": "FNGD"
+ },
+ {
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "RSP",
+  "theme": "EW S&P 500",
   "long": "",
   "short": ""
  },
  {
-  "group": "Market & China",
-  "theme": "China Tech",
-  "ticker": "KWEB",
-  "long": "CWEB",
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "QQEW",
+  "theme": "EW NQ 100",
+  "long": "",
   "short": ""
  },
  {
-  "group": "Market & China",
-  "theme": "China Large Cap",
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "UUP",
+  "theme": "USD Dollar Index",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Market Benchmarks",
+  "ticker": "UVXY",
+  "theme": "VIX Short Term Future",
+  "long": "UVIX",
+  "short": "SVXY"
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IJR",
+  "theme": "S&P Small-Cap 600 Core",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IJS",
+  "theme": "S&P Small-Cap 600 Value",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IJT",
+  "theme": "S&P Small-Cap 600 Growth",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IJH",
+  "theme": "S&P Mid-Cap 400 Core",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IJJ",
+  "theme": "S&P Mid-Cap 400 Value",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IJK",
+  "theme": "S&P Mid-Cap 400 Growth",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IVV",
+  "theme": "Core S&P 500",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IVE",
+  "theme": "S&P Large-Cap Growth",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sub-Market",
+  "ticker": "IVW",
+  "theme": "S&P Large-Cap Value",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLRE",
+  "theme": "Real Estate",
+  "long": "DRN",
+  "short": "DRV"
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLU",
+  "theme": "Utilities",
+  "long": "UTSL",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLV",
+  "theme": "Heath Care",
+  "long": "CURE",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLF",
+  "theme": "Financials",
+  "long": "FAS",
+  "short": "FAZ"
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLP",
+  "theme": "Consumer Staples",
+  "long": "UGE",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLB",
+  "theme": "Materials",
+  "long": "UYM",
+  "short": "SMN"
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLE",
+  "theme": "Energy",
+  "long": "ERX",
+  "short": "ERY"
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLI",
+  "theme": "Industrials",
+  "long": "DUSL",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLY",
+  "theme": "Consumer Discretionary",
+  "long": "WANT",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLC",
+  "theme": "Communication",
+  "long": "LTL",
+  "short": ""
+ },
+ {
+  "tab": "macro",
+  "group": "Sectors",
+  "ticker": "XLK",
+  "theme": "Technology",
+  "long": "TECL",
+  "short": "TECS"
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Global Broad",
+  "ticker": "ACWX",
+  "theme": "World ex-US",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Global Broad",
+  "ticker": "IEFA",
+  "theme": "Developed ex-US (EAFE)",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Global Broad",
+  "ticker": "SCZ",
+  "theme": "Developed ex-US Small Cap",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Global Broad",
+  "ticker": "IEMG",
+  "theme": "Emerging Markets Core",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Global Broad",
+  "ticker": "EMXC",
+  "theme": "EM ex-China",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Global Broad",
+  "ticker": "AAXJ",
+  "theme": "Asia ex-Japan",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Developed",
+  "ticker": "EPP",
+  "theme": "Asia-Pacific ex-Japan",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Developed",
+  "ticker": "EWJ",
+  "theme": "Japan",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Developed",
+  "ticker": "FEZ",
+  "theme": "Euro Stoxx 50",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Developed",
+  "ticker": "SPEU",
+  "theme": "Europe Broad",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Developed",
+  "ticker": "EWH",
+  "theme": "Hong Kong",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Developed",
+  "ticker": "EWS",
+  "theme": "Singapore",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Developed",
+  "ticker": "EIS",
+  "theme": "Israel",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EPOL",
+  "theme": "Poland",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "GREK",
+  "theme": "Greece",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "TUR",
+  "theme": "Turkey",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "MCHI",
+  "theme": "China Broad",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
   "ticker": "FXI",
-  "long": "YINN",
-  "short": "YANG"
+  "theme": "China Large Cap",
+  "long": "",
+  "short": "",
+  "single_country": false
  },
  {
-  "group": "Market & China",
-  "theme": "CSI 300",
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
   "ticker": "ASHR",
-  "long": "CHAU",
-  "short": ""
- },
- {
-  "group": "Market & China",
-  "theme": "US IPO Fund",
-  "ticker": "IPO",
+  "theme": "CSI 300 A-Share",
   "long": "",
-  "short": ""
+  "short": "",
+  "single_country": false
  },
  {
-  "group": "Market & China",
-  "theme": "ALPHA Fund",
-  "ticker": "SPRX",
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "KWEB",
+  "theme": "China Tech",
   "long": "",
-  "short": ""
+  "short": "",
+  "single_country": false
  },
  {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EWT",
+  "theme": "Taiwan",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EWY",
+  "theme": "South Korea",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EIDO",
+  "theme": "Indonesia",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "INDA",
+  "theme": "India",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "VNM",
+  "theme": "Vietnam",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "KSA",
+  "theme": "Saudi Arabia",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "UAE",
+  "theme": "United Arab Emirates",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "QAT",
+  "theme": "Qatar",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EZA",
+  "theme": "South Africa",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "ILF",
+  "theme": "Latin America Broad",
+  "long": "",
+  "short": "",
+  "single_country": false
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EWZ",
+  "theme": "Brazil",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "ARGT",
+  "theme": "Argentina",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "ECH",
+  "theme": "Chile",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EPU",
+  "theme": "Peru",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "COLO",
+  "theme": "Colombia",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "macro",
+  "group": "Country & Region \u00b7 Emerging",
+  "ticker": "EWW",
+  "theme": "Mexico",
+  "long": "",
+  "short": "",
+  "single_country": true
+ },
+ {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Semiconductor",
   "ticker": "SMH",
+  "theme": "Semiconductor",
   "long": "SOXL",
   "short": "SOXS"
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "EUV Lithography & Photonics",
   "ticker": "EUV",
+  "theme": "EUV Lithography & Photonics",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Memory - DRAM,NAND, HBM",
   "ticker": "DRAM",
+  "theme": "Memory - DRAM,NAND, HBM",
   "long": "RAM",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "AI & Innovation",
   "ticker": "WTAI",
+  "theme": "AI & Innovation",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Quantum Computng",
   "ticker": "QTUM",
+  "theme": "Quantum Computng",
   "long": "QPUX",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Cloud Cmptng",
   "ticker": "WCLD",
+  "theme": "Cloud Cmptng",
   "long": "CLDL",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Software & Services",
   "ticker": "XSW",
+  "theme": "Software & Services",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Data Center & Digital Infras",
   "ticker": "DTCR",
+  "theme": "Data Center & Digital Infras",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Cybersecurity",
   "ticker": "CIBR",
+  "theme": "Cybersecurity",
   "long": "UCYB",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Connectivity & Space Comms",
   "ticker": "UFOX",
+  "theme": "Connectivity & Space Comms",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Telecom",
   "ticker": "XTL",
+  "theme": "Telecom",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Robotics & AI",
   "ticker": "BOTZ",
+  "theme": "Robotics & AI",
   "long": "UBOT",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Autonomous Tech & Robotics",
   "ticker": "ARKQ",
+  "theme": "Autonomous Tech & Robotics",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Next-Gen Defense Tech",
   "ticker": "SHLD",
+  "theme": "Next-Gen Defense Tech",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Defence Tech (Korea)",
   "ticker": "KDEF",
+  "theme": "Defence Tech (Korea)",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "S&P Aerospace & Defence",
   "ticker": "XAR",
+  "theme": "S&P Aerospace & Defence",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Aerospace & Defense",
   "ticker": "ITA",
+  "theme": "Aerospace & Defense",
   "long": "DFEN",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "NATO Defense & Aero  Industry",
   "ticker": "NATO",
+  "theme": "NATO Defense & Aero  Industry",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Europe Aerospace & Defense",
   "ticker": "EUAD",
+  "theme": "Europe Aerospace & Defense",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Space Tech",
   "ticker": "UFO",
+  "theme": "Space Tech",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Space Exploration & Innovation",
   "ticker": "ARKX",
+  "theme": "Space Exploration & Innovation",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Airliners",
   "ticker": "JETS",
+  "theme": "Airliners",
   "long": "JETU",
   "short": "JETD"
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Travel Tech",
   "ticker": "AWAY",
+  "theme": "Travel Tech",
   "long": "FLYU",
   "short": "JETD"
  },
  {
+  "tab": "themes",
   "group": "Emerging Tech",
-  "theme": "Fintech",
   "ticker": "ARKF",
+  "theme": "Fintech",
   "long": "TARK",
   "short": "SARK"
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Electrifiction -Passive, US Focused",
   "ticker": "ZAP",
+  "theme": "Electrifiction -Passive, US Focused",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Electrifiction -Active, Global Focused",
   "ticker": "VOLT",
+  "theme": "Electrifiction -Active, Global Focused",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Clean Edge Smart Grid Infras",
   "ticker": "GRID",
+  "theme": "Clean Edge Smart Grid Infras",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Wind Energy",
   "ticker": "FAN",
+  "theme": "Wind Energy",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Solar Energy",
   "ticker": "TAN",
+  "theme": "Solar Energy",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Clean Energy",
   "ticker": "ICLN",
+  "theme": "Clean Energy",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Energy Storage & Materials",
   "ticker": "IBAT",
+  "theme": "Energy Storage & Materials",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Unclear Utilities + Miners",
   "ticker": "NLR",
+  "theme": "Unclear Utilities + Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "Nuclear Energy Innovation",
   "ticker": "NUKZ",
+  "theme": "Nuclear Energy Innovation",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "New Energy",
-  "theme": "High-beta Uranium Exposure",
   "ticker": "URA",
+  "theme": "High-beta Uranium Exposure",
   "long": "URAA",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Metal & Minings",
   "ticker": "XME",
+  "theme": "Metal & Minings",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Materials",
   "ticker": "RSPM",
+  "theme": "Materials",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Metals & Mining Producers",
   "ticker": "PICK",
+  "theme": "Metals & Mining Producers",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Gold Miners (Sprott)",
   "ticker": "SGDM",
+  "theme": "Gold Miners (Sprott)",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Gold Miners",
   "ticker": "GDX",
+  "theme": "Gold Miners",
   "long": "GDXU",
   "short": "GDXD"
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Gold Miners Junior (Sprott)",
   "ticker": "SGDJ",
+  "theme": "Gold Miners Junior (Sprott)",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Gold Miners Junior",
   "ticker": "GDXJ",
+  "theme": "Gold Miners Junior",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Silver Miners",
   "ticker": "SIL",
+  "theme": "Silver Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Silver Miners Junior",
   "ticker": "SILJ",
+  "theme": "Silver Miners Junior",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Silver Miners + Physical Silver",
   "ticker": "SLVR",
+  "theme": "Silver Miners + Physical Silver",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Steel Miners",
   "ticker": "SLX",
+  "theme": "Steel Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Coal Miners",
   "ticker": "COAL",
+  "theme": "Coal Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Critical Metals",
   "ticker": "SETM",
+  "theme": "Critical Metals",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Rare Earth",
   "ticker": "REMX",
+  "theme": "Rare Earth",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Rare Earths Ex-China",
   "ticker": "REXC",
+  "theme": "Rare Earths Ex-China",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Uranium Miners",
   "ticker": "URNM",
+  "theme": "Uranium Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Uranium Miners Junior",
   "ticker": "URNJ",
+  "theme": "Uranium Miners Junior",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Lithium Miners",
   "ticker": "LITP",
+  "theme": "Lithium Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Nikel Miners",
   "ticker": "NIKL",
+  "theme": "Nikel Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Copper Miners (Sprott)",
   "ticker": "COPP",
+  "theme": "Copper Miners (Sprott)",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Copper Miners Junior",
   "ticker": "COPJ",
+  "theme": "Copper Miners Junior",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Metal & Mining",
-  "theme": "Active Gold & Silver Miners",
   "ticker": "GBUG",
+  "theme": "Active Gold & Silver Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Agriculture Broad",
   "ticker": "DBA",
+  "theme": "Agriculture Broad",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Agriculture Broad (iShares)",
   "ticker": "VEGI",
+  "theme": "Agriculture Broad (iShares)",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Agribusiness",
   "ticker": "MOO",
+  "theme": "Agribusiness",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Wheat",
   "ticker": "WEAT",
+  "theme": "Wheat",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Corn",
   "ticker": "CORN",
+  "theme": "Corn",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Sugar",
   "ticker": "CANE",
+  "theme": "Sugar",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Soybeans",
   "ticker": "SOYB",
+  "theme": "Soybeans",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Agriculture",
-  "theme": "Timber & Forestry",
   "ticker": "WOOD",
+  "theme": "Timber & Forestry",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Construction & Transpotation",
-  "theme": "Home Construction",
   "ticker": "ITB",
+  "theme": "Home Construction",
   "long": "NAIL",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Construction & Transpotation",
-  "theme": "Transpotation",
   "ticker": "XTN",
+  "theme": "Transpotation",
   "long": "TPOR",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Construction & Transpotation",
-  "theme": "Global Shipping - Dry",
   "ticker": "BDRY",
+  "theme": "Global Shipping - DRY",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Construction & Transpotation",
-  "theme": "Global Shipping - Wet",
   "ticker": "BWET",
+  "theme": "Global Shipping - WET",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Financials",
-  "theme": "Large Banks",
   "ticker": "KBE",
+  "theme": "Large Banks",
   "long": "BNKU",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Financials",
-  "theme": "Regional Banks",
   "ticker": "KRE",
+  "theme": "Regional Banks",
   "long": "DPST",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Financials",
-  "theme": "Capital Markets",
   "ticker": "KCE",
+  "theme": "Capital Markets",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Financials",
-  "theme": "Insurance",
   "ticker": "KIE",
+  "theme": "Insurance",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Fossil & Fuel",
-  "theme": "Oil & Gas Exploration and Production",
   "ticker": "XOP",
+  "theme": "Oil & Gas Exploration and Production",
   "long": "GUSH",
   "short": "DRIP"
  },
  {
+  "tab": "themes",
   "group": "Fossil & Fuel",
-  "theme": "Oil Equipment & Services",
   "ticker": "IEZ",
+  "theme": "Oil Equipment & Services",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Fossil & Fuel",
-  "theme": "Oil Services",
   "ticker": "OIH",
+  "theme": "Oil Services",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Fossil & Fuel",
-  "theme": "Oil",
   "ticker": "USO",
+  "theme": "Oil",
   "long": "UCO",
   "short": "SCO"
  },
  {
+  "tab": "themes",
   "group": "Fossil & Fuel",
-  "theme": "Natural Gas",
   "ticker": "UNG",
+  "theme": "Natural Gas",
   "long": "BOIL",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Health",
-  "theme": "Health Care",
   "ticker": "RSPH",
+  "theme": "Health Care",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Health",
-  "theme": "Health Care Equipments",
   "ticker": "XHE",
+  "theme": "Health Care Equipments",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Health",
-  "theme": "Medical Breakthroughs",
   "ticker": "SBIO",
+  "theme": "Medical Breakthroughs",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Health",
-  "theme": "Health Tech",
   "ticker": "HEAL",
+  "theme": "Health Tech",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Health",
-  "theme": "Cannabis Drug",
   "ticker": "MSOS",
+  "theme": "Cannabis Drug",
   "long": "MSOX",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Health",
-  "theme": "Psychedelics Drug",
   "ticker": "PSIL",
+  "theme": "Psychedelics Drug",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Health",
-  "theme": "Weight Loss Drug & Treatment",
   "ticker": "THNR",
+  "theme": "Weight Loss Drug & Treatment",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Crypto & Digital Asset",
-  "theme": "Crypto Diversified (Grayscale)",
   "ticker": "GDLC",
+  "theme": "Crypto Diversified (Grayscale)",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  },
  {
+  "tab": "themes",
   "group": "Crypto & Digital Asset",
-  "theme": "Bitcoin ETF (BlackRock)",
   "ticker": "IBIT",
+  "theme": "Bitcoin ETF (BlackRock)",
   "long": "BITX",
-  "short": "SBIT",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": "SBIT"
  },
  {
+  "tab": "themes",
   "group": "Crypto & Digital Asset",
-  "theme": "Ethereum ETF (BlackRock)",
   "ticker": "ETHA",
+  "theme": "Ethereum ETF (BlackRock)",
   "long": "ETHU",
-  "short": "ETHD",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": "ETHD"
  },
  {
+  "tab": "themes",
   "group": "Crypto & Digital Asset",
-  "theme": "Crypto & Digital Asset",
   "ticker": "BLOK",
+  "theme": "Crypto & Digital Asset",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Crypto & Digital Asset",
-  "theme": "Bitcoin Miners",
   "ticker": "WGMI",
+  "theme": "Bitcoin Miners",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Crypto & Digital Asset",
-  "theme": "BTC Treasury Corp",
   "ticker": "OWNB",
+  "theme": "BTC Treasury Corp",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Others",
-  "theme": "Republican Congress Trading",
+  "ticker": "FFTY",
+  "theme": "IBD 50",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "themes",
+  "group": "Others",
+  "ticker": "IPO",
+  "theme": "US IPO Fund",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "themes",
+  "group": "Others",
+  "ticker": "SPRX",
+  "theme": "ALPHA Fund",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "themes",
+  "group": "Others",
   "ticker": "GOP",
+  "theme": "Republican Congress Trading",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Others",
-  "theme": "Democratic Congress Trading",
   "ticker": "NANC",
+  "theme": "Democratic Congress Trading",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Others",
-  "theme": "Meme Stock",
   "ticker": "MEME",
+  "theme": "Meme Stock",
   "long": "",
   "short": ""
  },
  {
+  "tab": "themes",
   "group": "Others",
-  "theme": "Carbon Credits",
   "ticker": "KRBN",
+  "theme": "Carbon Credits",
   "long": "",
-  "short": "",
-  "mcap": null,
-  "exp": null,
-  "yield": null
+  "short": ""
  }
 ]
