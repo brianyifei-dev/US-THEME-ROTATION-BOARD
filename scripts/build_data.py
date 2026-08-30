@@ -142,9 +142,14 @@ def fetch_fund_meta(t: str) -> dict:
     try:
         import yfinance as yf
         info = yf.Ticker(t).info or {}
-        ta = info.get("totalAssets")
-        if ta:
-            out["mcap"] = float(ta)
+        # For a company, Yahoo's totalAssets is a BALANCE-SHEET item, not fund AUM —
+        # using it would put a plausible-looking but wrong number in the same column.
+        qt = str(info.get("quoteType", "")).upper()
+        is_stock = qt in ("EQUITY", "STOCK")
+        out["is_stock"] = is_stock
+        size = info.get("marketCap") if is_stock else info.get("totalAssets")
+        if size:
+            out["mcap"] = float(size)
         er = (info.get("netExpenseRatio")
               or info.get("annualReportExpenseRatio")
               or info.get("expenseRatio"))
@@ -178,6 +183,16 @@ def main():
         c, o = series_for(ewt, hist)
         ew_metrics[ewt] = metrics_for(c, o, spy)
 
+    # prior snapshot -> lets us estimate net creations/redemptions from AUM changes
+    prior = {}
+    try:
+        if OUT.exists():
+            for r in json.loads(OUT.read_text()).get("rows", []):
+                if r.get("mcap") is not None:
+                    prior[r["ticker"]] = r["mcap"]
+    except Exception:
+        pass
+
     rows = []
     for u in UNIVERSE:
         t = u["ticker"]
@@ -187,7 +202,36 @@ def main():
         if not (u.get("long") or u.get("short")):
             m.update(fetch_fund_meta(t))
 
+        # Annualised distribution rate for preferred / credit securities.
+        # TTM dividends over price, falling back to Yahoo's stated yield.
+        if u.get("show_yield") and m.get("price"):
+            try:
+                import yfinance as yf
+                tk = yf.Ticker(t)
+                divs = tk.dividends
+                y = None
+                if divs is not None and len(divs):
+                    divs.index = divs.index.tz_localize(None)
+                    cutoff = pd.Timestamp.utcnow().tz_localize(None) - pd.Timedelta(days=365)
+                    ttm = float(divs[divs.index >= cutoff].sum())
+                    if ttm > 0:
+                        y = ttm / m["price"]
+                if y is None:
+                    dy = (tk.info or {}).get("dividendYield")
+                    if dy:
+                        dy = float(dy)
+                        y = dy / 100 if dy > 1 else dy   # Yahoo mixes percent and fraction
+                if y is not None and 0 < y < 1:          # sanity: 0-100%
+                    m["yield"] = round(y, 5)
+            except Exception:
+                pass
+
         row = {**u, **m}
+        # Net flow ~ change in AUM minus the portion explained by the price move.
+        # Daily EOD approximation: directional, not accounting-grade.
+        pa, ret = prior.get(t), m.get("daily")
+        if pa and m.get("mcap") is not None and ret is not None and not m.get("is_stock"):
+            row["aum_flow"] = round(m["mcap"] - pa * (1 + ret), 2)
 
         ewt = EW_PAIRS.get(t)
         if ewt:
@@ -200,13 +244,17 @@ def main():
 
         rows.append(row)
 
-    # cross-universe IBD-style RS Rating (1-99)
-    scored = [(i, r["rs_raw"]) for i, r in enumerate(rows) if r.get("rs_raw") is not None]
-    if len(scored) > 1:
-        ranked = sorted(scored, key=lambda x: x[1])
-        n = len(ranked)
-        for rank, (i, _) in enumerate(ranked):
-            rows[i]["rs_rating"] = max(1, min(99, round(rank / (n - 1) * 98 + 1)))
+    # IBD-style RS Rating (1-99), ranked WITHIN each tab. Ranking globally would let
+    # single crypto equities (10-20% daily moves) dominate both extremes and compress
+    # every ETF on the other tabs toward the middle.
+    for tab in {r.get("tab") for r in rows}:
+        scored = [(i, r["rs_raw"]) for i, r in enumerate(rows)
+                  if r.get("tab") == tab and r.get("rs_raw") is not None]
+        if len(scored) > 1:
+            ranked = sorted(scored, key=lambda x: x[1])
+            n = len(ranked)
+            for rank, (i, _) in enumerate(ranked):
+                rows[i]["rs_rating"] = max(1, min(99, round(rank / (n - 1) * 98 + 1)))
 
     OUT.write_text(json.dumps({
         "as_of": str(spy.index[-1].date()),
