@@ -108,6 +108,13 @@ td.l{text-align:left} tr:hover td{background:#161f2a}
 .mai.dn{border-top:8px solid transparent}
 td.mac{text-align:center}
 footer{color:var(--dim);font-size:11px;margin-top:34px;border-top:1px solid var(--line);padding-top:14px;line-height:1.7}
+footer h3{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--head);margin:14px 0 8px}
+footer dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0}
+footer dt{color:var(--amber);white-space:nowrap}
+footer dd{margin:0;color:var(--dim)}
+footer .caution dt{color:var(--dn)}
+@media(max-width:760px){footer dl{grid-template-columns:1fr}footer dd{margin:0 0 8px}}
 @media(max-width:900px){.hidem{display:none}}
 </style>
 </head>
@@ -170,6 +177,14 @@ const COUNTRY_GROUPS = ['Country & Region \u00b7 Global Broad',
                         'Country & Region \u00b7 Developed',
                         'Country & Region \u00b7 Emerging'];
 
+// Fixed core basket: the liquid, tradeable expression of each crypto theme.
+// One ETF per underlying asset, plus the operating companies — deliberately
+// excludes baskets (GDLC/BLOK/OWNB/WGMI/MNRS/NCLD) and the credit tranche.
+const CRYPTO_CORE = ['IBIT','ETHA','XRPZ','BSOL','HYPG','VBNB',
+                     'MSTR','BMNR','ASST','PURR','FWDI',
+                     'COIN','CRCL','GLXY','FIGR','HOOD',
+                     'MARA','CLSK','BTDR','HIVE','CAN'];
+
 const TABS = {
   macro: {
     label:'Macro',
@@ -184,6 +199,16 @@ const TABS = {
     ],
     foot:'<b>Treasury Curve</b> bars show implied \u0394 yield in bps, duration-normalised so each maturity is comparable \u2014 red = yields rising, green = yields falling. Positive 2s30s = steepening (term-premium / inflation concern); negative = flattening (hawkish Fed repricing).<br><b>Breadth</b> = equal-weight sector return minus cap-weight sector return (rolling weekly). Green right = broad participation; red left = move concentrated in the largest constituents. Hover for daily and monthly spreads.'
   },
+  crypto: {
+    label:'Crypto',
+    boards:[['Daily','daily'],['Rolling Weekly','roll_w'],['Rolling Monthly','roll_m']],
+    charts:[
+      { title:'Core Basket', sub:'Daily %',           tickers:CRYPTO_CORE, key:'daily'  },
+      { title:'Core Basket', sub:'Rolling Weekly %',  tickers:CRYPTO_CORE, key:'roll_w' },
+      { title:'Core Basket', sub:'Rolling Monthly %', tickers:CRYPTO_CORE, key:'roll_m' },
+    ],
+    foot:'<h3>Column definitions \u2014 Crypto tab</h3><dl><dt>Cap</dt><dd>Fund AUM for ETFs, <b>market capitalisation</b> for operating companies. Detected from Yahoo\u2019s quote type; hover any cell to see which is shown. The two are not comparable to each other.</dd><dt>\u25b2 / \u25bc flow</dt><dd>Estimated net creations/redemptions, shown beside AUM on fund rows only: <i>\u0394AUM \u2212 (prior AUM \u00d7 daily return)</i>, i.e. the AUM change not explained by the price move. Daily end-of-day approximation \u2014 directional, not accounting-grade, and noisier than official flow data. Blank until a second consecutive run exists, and blank after any missed run.</dd><dt>Yield</dt><dd>Digital Credit rows only. Trailing-12-month distributions \u00f7 current price, falling back to Yahoo\u2019s stated yield where payment history is short. This is <b>yield-on-price, not yield-on-par</b>: a preferred trading below par shows a higher figure than its nameplate coupon.</dd><dt>RS Rtg</dt><dd>1\u201399 percentile, ranked <b>within this tab only</b>. 95 means top-5% of crypto tickers \u2014 not comparable to an RS Rtg on Macro or Themes.</dd><dt>%52H</dt><dd>Distance below the 52-week high. Always \u2264 0 by construction; 0 = at the high.</dd><dt>Trend</dt><dd>Triangles render green only when price is above that MA. A blank cell means below \u2014 red is deliberately invisible to keep the scan clean.</dd></dl><h3>Chart scope</h3><dl><dt>Top 5</dt><dd>Ranks every ticker on this tab together \u2014 ETFs, treasuries, exchanges, miners and credit compete on one list.</dd><dt>Core Basket</dt><dd>Fixed 21-ticker list: one liquid instrument per underlying theme plus the operating companies. Deliberately excludes basket products (GDLC, BLOK, OWNB, WGMI, MNRS, NCLD) and the credit tranche, so diversified funds don\u2019t mute the signal. Those rows remain in the tables below.</dd></dl><h3>Reading the sections</h3><dl><dt>Miners vs NeoCloud</dt><dd>The spread is the thesis: if CORZ/IREN/APLD outrun MARA/CLSK, the market is repricing hashrate infrastructure as AI datacentre capacity rather than bitcoin production.</dd><dt>IBIT / FBTC / MSBT</dt><dd>All hold spot bitcoin, so prices move near-identically \u2014 RS between them is noise. The <b>flow</b> figures carry the signal: asset-manager vs bank-channel adoption.</dd><dt>Equity volatility</dt><dd>Sections below Spot ETFs are individual companies, routinely moving 10\u201320% daily against 1\u20133% for ETFs. Expect them to dominate both ends of every ranking.</dd></dl><h3 style=\"color:var(--dn)\">Data caveats</h3><dl class=\"caution\"><dt>New listings</dt><dd>Most tickers here launched during 2026. Roll M needs 21 sessions, YTD/1Y and RS Rtg need up to 252 \u2014 these columns stay blank for weeks after listing. Dots are expected, not faults.</dd><dt>HYPG</dt><dd>Unverified at build time; research surfaced only BHYP as a US spot HYPE product. If HYPG returns no data, BHYP is the fallback.</dd><dt>Preferreds</dt><dd>STRC is a variable-rate instrument \u2014 its coupon resets, so a trailing yield lags the current rate. Check the issuer before acting on it.</dd></dl>'
+  },
   themes: {
     label:'Themes',
     boards:[['Daily','daily'],['Rolling Weekly','roll_w'],['Rolling Monthly','roll_m']],
@@ -196,8 +221,10 @@ let DATA = null, ACTIVE = 'macro';
 function chartHTML(cfg, rows){
   const cls  = cfg.wide ? 'chart wide' : 'chart';
   const head = `<h2>${cfg.title} \u00b7 <em>${cfg.sub}</em></h2>`;
-  const rs = rows.filter(r=>cfg.groups.includes(r.group) && r[cfg.key]!=null && (!cfg.only||cfg.only(r)))
-                 .sort((a,b)=>b[cfg.key]-a[cfg.key]);
+  const rs = rows.filter(r=>
+      (cfg.tickers ? cfg.tickers.includes(r.ticker) : cfg.groups.includes(r.group))
+      && r[cfg.key]!=null && (!cfg.only||cfg.only(r)))
+    .sort((a,b)=>b[cfg.key]-a[cfg.key]);
   if(!rs.length) return `<div class="${cls}">${head}<div class="crow"><span class="cnm na">awaiting live data</span></div></div>`;
   const max = Math.max(...rs.map(r=>Math.abs(r[cfg.key])), 1e-9);
   return `<div class="${cls}">${head}` + rs.map(r=>{
@@ -278,9 +305,10 @@ function render(tab){
   }));
 
   // charts / boards
-  document.getElementById('charts').innerHTML = cfg.charts
-    ? cfg.charts.map(c=>c.curve ? curveHTML(c, rows) : chartHTML(c, rows)).join('')
-    : cfg.boards.map(([l,k])=>boardHTML(l,k,rows)).join('');
+  // a tab may define boards, charts, or both — render boards first
+  const boardsHTML = (cfg.boards||[]).map(([l,k])=>boardHTML(l,k,rows)).join('');
+  const chartsHTML = (cfg.charts||[]).map(c=>c.curve ? curveHTML(c, rows) : chartHTML(c, rows)).join('');
+  document.getElementById('charts').innerHTML = boardsHTML + chartsHTML;
 
   // group tables
   const order=[], byG={};
@@ -291,7 +319,9 @@ function render(tab){
       <thead>
       <tr class="bands"><th colspan="5" class="blank"></th><th colspan="4">Relative Strength (v. SPY)</th><th colspan="7" class="secL">Performance${g==='Sectors'?' &amp; Breadth':''}</th><th colspan="5" class="secL trend">Trend Indicators</th></tr>
       <tr>${COLS.map(([k,l0],ci)=>{
-        const l = (k==='breadth_w' && g!=='Sectors') ? '' : l0;
+        const l = (k==='breadth_w' && g!=='Sectors') ? ''
+                : (k==='pair' && g==='Digital Credit') ? 'Yield'
+                : l0;
         const secStart = (k==='roll_w'||k==='vs10');
         const trend = ['vs10','vs21','vs50','g6_50','g21_50'].includes(k);
         return `<th class="${ci<2?'l':''} ${['ytd','y1','w1','m1'].includes(k)?'hidem':''} ${secStart?'secL':''} ${trend?'trend':''}" data-k="${k}">${l}</th>`;
@@ -313,12 +343,22 @@ function render(tab){
         v>=1e9  ? (v/1e9 ).toFixed(1)+'B' :
         v>=1e6  ? (v/1e6 ).toFixed(0)+'M' : v.toFixed(0);
       let pair;
-      if(r.long||r.short){
+      if(r.show_yield && r['yield']!=null){
+        // annualised distribution rate (trailing 12 months / price)
+        pair = `<span class="pair" title="Annualised distribution rate (trailing 12 months)"><b>${(r['yield']*100).toFixed(2)}%</b></span>`;
+      } else if(r.show_yield){
+        pair = '<span class="na">·</span>';
+      } else if(r.long||r.short){
         pair = `<span class="pair">${r.long?'<b>'+r.long+'</b>':''}${r.long&&r.short?' / ':''}${r.short?'<s>'+r.short+'</s>':''}</span>`;
       } else if(r.mcap!=null || r.exp!=null){
         const cap = r.mcap!=null ? fmtCap(r.mcap) : '';
         const exp = r.exp!=null ? (r.exp*100).toFixed(2)+'%' : '';
-        pair = `<span class="pair" title="AUM${r.exp!=null?' \u00b7 expense ratio':''}">${cap}${cap&&exp?' \u00b7 ':''}${exp}</span>`;
+        // estimated net creations/redemptions: change in AUM net of the price move
+        const fl = r.aum_flow!=null
+          ? ` <span class="${r.aum_flow>=0?'up':'dn'}" title="Estimated net flow: \u0394AUM less price return">${r.aum_flow>=0?'\u25b2':'\u25bc'}${fmtCap(Math.abs(r.aum_flow))}</span>`
+          : '';
+        const lbl = r.is_stock ? 'Market cap' : 'AUM';
+        pair = `<span class="pair" title="${lbl}${r.exp!=null?' \u00b7 expense ratio':''}">${cap}${cap&&exp?' \u00b7 ':''}${exp}${fl}</span>`;
       } else {
         pair = '<span class="na">·</span>';
       }
@@ -359,8 +399,8 @@ function render(tab){
     });
   });
 
-  document.getElementById('foot').innerHTML = cfg.foot +
-    '<br>RS Rtg = 1–99 cross-universe rank (IBD-style, weighted 3/6/9/12M excess return vs SPY) · %52H bar: 0 = at 52-week high · Trend triangles show green only when price is above the MA.';
+  document.getElementById('foot').innerHTML = cfg.foot + (ACTIVE === 'crypto' ? '' :
+    '<br>RS Rtg = 1–99 rank within this tab (IBD-style, weighted 3/6/9/12M excess return vs SPY) · %52H bar: 0 = at 52-week high · Trend triangles show green only when price is above the MA.');
 }
 
 fetch('snapshot.json').then(r=>r.json()).then(d=>{
