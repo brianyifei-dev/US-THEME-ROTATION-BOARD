@@ -98,8 +98,8 @@
   "group": "Market Benchmarks",
   "ticker": "MAGS",
   "theme": "Mag 7",
-  "long": "FNGU",
-  "short": "FNGD"
+  "long": "MAGX",
+  "short": "MAGQ"
  },
  {
   "tab": "macro",
@@ -1291,54 +1291,6 @@
  },
  {
   "tab": "themes",
-  "group": "Crypto & Digital Asset",
-  "ticker": "GDLC",
-  "theme": "Crypto Diversified (Grayscale)",
-  "long": "",
-  "short": ""
- },
- {
-  "tab": "themes",
-  "group": "Crypto & Digital Asset",
-  "ticker": "IBIT",
-  "theme": "Bitcoin ETF (BlackRock)",
-  "long": "BITX",
-  "short": "SBIT"
- },
- {
-  "tab": "themes",
-  "group": "Crypto & Digital Asset",
-  "ticker": "ETHA",
-  "theme": "Ethereum ETF (BlackRock)",
-  "long": "ETHU",
-  "short": "ETHD"
- },
- {
-  "tab": "themes",
-  "group": "Crypto & Digital Asset",
-  "ticker": "BLOK",
-  "theme": "Crypto & Digital Asset",
-  "long": "",
-  "short": ""
- },
- {
-  "tab": "themes",
-  "group": "Crypto & Digital Asset",
-  "ticker": "WGMI",
-  "theme": "Bitcoin Miners",
-  "long": "",
-  "short": ""
- },
- {
-  "tab": "themes",
-  "group": "Crypto & Digital Asset",
-  "ticker": "OWNB",
-  "theme": "BTC Treasury Corp",
-  "long": "",
-  "short": ""
- },
- {
-  "tab": "themes",
   "group": "Others",
   "ticker": "FFTY",
   "theme": "IBD 50",
@@ -1392,5 +1344,328 @@
   "theme": "Carbon Credits",
   "long": "",
   "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "GDLC",
+  "theme": "Crypto Diversified (Grayscale)",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "IBIT",
+  "theme": "Bitcoin (BlackRock)",
+  "long": "BITX",
+  "short": "SBIT"
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "FBTC",
+  "theme": "Bitcoin (Fidelity)",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "MSBT",
+  "theme": "Bitcoin (Morgan Stanley)",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "ETHA",
+  "theme": "Ethereum (BlackRock)",
+  "long": "ETHU",
+  "short": "ETHD"
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "ETHB",
+  "theme": "Ethereum Staking (BlackRock)",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "XRPZ",
+  "theme": "XRP Spot",
+  "long": "XXRP",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "BSOL",
+  "theme": "Solana Staking (Bitwise)",
+  "long": "SOLT",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "HYPG",
+  "theme": "Hyperliquid Staking (Grayscale)",
+  "long": "TXXH",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "VBNB",
+  "theme": "BNB (VanEck)",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Spot Crypto ETFs",
+  "ticker": "BLOK",
+  "theme": "Blockchain Equities (broad)",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "OWNB",
+  "theme": "Bitcoin Standard Corporations",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "MSTR",
+  "theme": "Strategy (MicroStrategy)",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "BMNR",
+  "theme": "Bitmine Immersion",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "ASST",
+  "theme": "Asset Entities",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "PURR",
+  "theme": "Purr Treasury",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "FWDI",
+  "theme": "Forward Industries",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Issuers & Exchanges",
+  "ticker": "COIN",
+  "theme": "Coinbase",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Issuers & Exchanges",
+  "ticker": "CRCL",
+  "theme": "Circle",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Issuers & Exchanges",
+  "ticker": "GLXY",
+  "theme": "Galaxy Digital",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Issuers & Exchanges",
+  "ticker": "FIGR",
+  "theme": "Figure Technology",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Issuers & Exchanges",
+  "ticker": "HOOD",
+  "theme": "Robinhood",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Miners",
+  "ticker": "WGMI",
+  "theme": "Bitcoin Miners ETF",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Miners",
+  "ticker": "MNRS",
+  "theme": "Crypto Miners ETF",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Miners",
+  "ticker": "MARA",
+  "theme": "MARA Holdings",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Miners",
+  "ticker": "CLSK",
+  "theme": "CleanSpark",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Miners",
+  "ticker": "BTDR",
+  "theme": "Bitdeer Technologies",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Miners",
+  "ticker": "HIVE",
+  "theme": "HIVE Digital",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Miners",
+  "ticker": "CAN",
+  "theme": "Canaan",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "NCLD",
+  "theme": "NeoCloud ETF",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "CORZ",
+  "theme": "Core Scientific",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "WULF",
+  "theme": "TeraWulf",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "HUT",
+  "theme": "Hut 8",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "IREN",
+  "theme": "IREN",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "CIFR",
+  "theme": "Cipher Mining",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "KEEL",
+  "theme": "Keel Digital",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "APLD",
+  "theme": "Applied Digital",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Digital Credit",
+  "ticker": "STRC",
+  "theme": "Strategy Preferred",
+  "long": "",
+  "short": "",
+  "show_yield": true
+ },
+ {
+  "tab": "crypto",
+  "group": "Digital Credit",
+  "ticker": "SATA",
+  "theme": "Sata Digital Credit",
+  "long": "",
+  "short": "",
+  "show_yield": true
+ },
+ {
+  "tab": "crypto",
+  "group": "Digital Credit",
+  "ticker": "BMNP",
+  "theme": "Bitmine Preferred",
+  "long": "",
+  "short": "",
+  "show_yield": true
  }
 ]
