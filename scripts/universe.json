@@ -1476,6 +1476,14 @@
  {
   "tab": "crypto",
   "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "CYPH",
+  "theme": "Cypherpunk Holdings",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
   "ticker": "FWDI",
   "theme": "Forward Industries",
   "long": "",
