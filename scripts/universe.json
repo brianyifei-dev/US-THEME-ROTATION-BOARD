@@ -1452,6 +1452,14 @@
  {
   "tab": "crypto",
   "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "ASST",
+  "theme": "Asset Entities",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
   "ticker": "BMNR",
   "theme": "Bitmine Immersion",
   "long": "",
@@ -1460,8 +1468,16 @@
  {
   "tab": "crypto",
   "group": "DAT \u00b7 Digital Asset Treasury",
-  "ticker": "ASST",
-  "theme": "Asset Entities",
+  "ticker": "SBET",
+  "theme": "SharpLink \u2014 ETH Treasury",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "DAT \u00b7 Digital Asset Treasury",
+  "ticker": "FWDI",
+  "theme": "Forward Industries",
   "long": "",
   "short": ""
  },
@@ -1477,21 +1493,13 @@
   "tab": "crypto",
   "group": "DAT \u00b7 Digital Asset Treasury",
   "ticker": "CYPH",
-  "theme": "Cypherpunk Holdings",
+  "theme": "Cypherpunk \u2014 ZEC Treasury",
   "long": "",
   "short": ""
  },
  {
   "tab": "crypto",
-  "group": "DAT \u00b7 Digital Asset Treasury",
-  "ticker": "FWDI",
-  "theme": "Forward Industries",
-  "long": "",
-  "short": ""
- },
- {
-  "tab": "crypto",
-  "group": "Issuers & Exchanges",
+  "group": "Exchanges & Infrastructure",
   "ticker": "COIN",
   "theme": "Coinbase",
   "long": "",
@@ -1499,7 +1507,23 @@
  },
  {
   "tab": "crypto",
-  "group": "Issuers & Exchanges",
+  "group": "Exchanges & Infrastructure",
+  "ticker": "HOOD",
+  "theme": "Robinhood",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Exchanges & Infrastructure",
+  "ticker": "BKKT",
+  "theme": "Bakkt \u2014 Crypto Rails & Stablecoin",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Exchanges & Infrastructure",
   "ticker": "CRCL",
   "theme": "Circle",
   "long": "",
@@ -1507,15 +1531,7 @@
  },
  {
   "tab": "crypto",
-  "group": "Issuers & Exchanges",
-  "ticker": "GLXY",
-  "theme": "Galaxy Digital",
-  "long": "",
-  "short": ""
- },
- {
-  "tab": "crypto",
-  "group": "Issuers & Exchanges",
+  "group": "Exchanges & Infrastructure",
   "ticker": "FIGR",
   "theme": "Figure Technology",
   "long": "",
@@ -1523,9 +1539,9 @@
  },
  {
   "tab": "crypto",
-  "group": "Issuers & Exchanges",
-  "ticker": "HOOD",
-  "theme": "Robinhood",
+  "group": "Exchanges & Infrastructure",
+  "ticker": "GLXY",
+  "theme": "Galaxy Digital",
   "long": "",
   "short": ""
  },
@@ -1646,6 +1662,14 @@
   "group": "Old Miners \u2192 NeoCloud",
   "ticker": "APLD",
   "theme": "Applied Digital",
+  "long": "",
+  "short": ""
+ },
+ {
+  "tab": "crypto",
+  "group": "Old Miners \u2192 NeoCloud",
+  "ticker": "SLNH",
+  "theme": "Soluna \u2014 Green DC / AI+BTC",
   "long": "",
   "short": ""
  },
