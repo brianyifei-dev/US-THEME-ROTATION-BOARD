@@ -122,15 +122,17 @@ td.mac{text-align:center}
 .bandlab{display:flex;justify-content:space-between;font-size:9px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
 /* capital stack */
 .stk{display:flex;flex-direction:column;gap:2px;margin-top:4px}
-.stkrow{display:grid;grid-template-columns:52px 1fr 96px;align-items:center;gap:10px;font-size:11.5px}
+.stkrow{display:grid;grid-template-columns:56px 1fr 200px;align-items:stretch;gap:12px;font-size:11.5px;min-height:26px}
 .stkbar{position:relative;background:var(--panel2);height:100%;min-height:20px}
 .stkbar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(232,179,75,.5),rgba(232,179,75,.15))}
 .stkbar.debt i{background:linear-gradient(90deg,rgba(94,111,130,.55),rgba(94,111,130,.15))}
 .stkbar.junior i{background:linear-gradient(90deg,rgba(240,101,90,.5),rgba(240,101,90,.15))}
 .stkbar.common i{background:linear-gradient(90deg,rgba(62,207,142,.4),rgba(62,207,142,.1))}
-.stkbar b{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:10.5px;color:#e8eef5;font-weight:600;z-index:1}
+.stkbar b{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:10.5px;color:#e8eef5;
+  font-weight:600;z-index:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 20px)}
 .stkrow .tag{color:var(--dim);font-size:10px;text-align:right}
-.stkrow .amt{text-align:right;color:var(--head)}
+.stkrow .amt{text-align:right;color:var(--head);white-space:nowrap;align-self:center;font-variant-numeric:tabular-nums}
+.stkrow .tk{align-self:center}
 /* generic KV rows */
 .kv{display:grid;grid-template-columns:1fr auto;gap:3px 12px;font-size:11.5px;padding:3px 0}
 .kv .k{color:var(--head)} .kv .k em{color:var(--dim);font-style:normal;font-size:10px;margin-left:6px}
@@ -141,6 +143,17 @@ td.mac{text-align:center}
 .wtrack::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)}
 .wbar{position:absolute;top:1px;bottom:1px}
 .wbar.pos{left:50%;background:rgba(62,207,142,.5)} .wbar.neg{right:50%;background:rgba(240,101,90,.5)}
+.hdr2{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.hdr2 .lab{color:var(--dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.hdr2 .big{font-family:var(--sans);font-size:26px;font-weight:800;line-height:1.15;margin-top:3px}
+.hdr2 .chg{font-size:11px;font-weight:600}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:var(--dim);margin-top:8px}
+.legend i{display:inline-block;width:9px;height:9px;margin-right:4px;vertical-align:-1px}
+.smx{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:6px}
+.smtile{background:var(--panel2);border:1px solid var(--line);padding:9px 11px 7px}
+.smtile .t{font-size:11.5px;color:#e8eef5;font-weight:600}
+.smtile .n{font-size:10.5px;color:var(--head);font-variant-numeric:tabular-nums}
+.smtile .d{font-size:10.5px;font-weight:600;float:right}
 footer{color:var(--dim);font-size:11px;margin-top:34px;border-top:1px solid var(--line);padding-top:14px;line-height:1.7}
 footer h3{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:var(--head);margin:14px 0 8px}
@@ -398,6 +411,89 @@ function modCapitalStack(rows){
     <div class="stk">${body}</div></div>`;
 }
 
+
+// ── notional time series: stacked area + small multiples + blended cost ─────
+const STACK_KEYS = ['STRF','STRC','STRE','STRK','STRD'];
+const STACK_COL  = {STRF:'#e8b34b',STRC:'#f0913a',STRE:'#8ea2b8',STRK:'#5aa9e6',STRD:'#f0655a',CONV:'#5f6f82'};
+
+function weekly(hist){                       // log daily, display weekly
+  if(!hist||!hist.length) return [];
+  const out=[], seen=new Set();
+  hist.forEach((h,i)=>{
+    const d=new Date(h.date+'T00:00:00');
+    const wk=`${d.getUTCFullYear()}-${Math.floor((d-new Date(Date.UTC(d.getUTCFullYear(),0,1)))/6048e5)}`;
+    if(!seen.has(wk) || i===hist.length-1){ seen.add(wk); out.push(h); }
+  });
+  return out;
+}
+const blended = h => {
+  const n=h.notional||{}, r=h.rate||{};
+  const tot=Object.values(n).reduce((a,b)=>a+b,0);
+  const ann=Object.keys(n).reduce((a,t)=>a+n[t]*(r[t]??0)/100,0);
+  return {tot, ann, rate: tot? ann/tot*100 : null};
+};
+
+function modNotionalTS(hist){
+  const H = weekly(hist);
+  if(H.length < 2)
+    return `<div class="mod full"><h2>Notional Trend</h2>
+      <div class="sub">needs at least two logged readings \u2014 builds automatically from each run</div></div>`;
+
+  const first=blended(H[0]), last=blended(H[H.length-1]);
+  const dTot=last.tot-first.tot, dRate=last.rate-first.rate, dAnn=last.ann-first.ann;
+  const arrow=v=>v>0?'\u25b2':v<0?'\u25bc':'\u2014';
+  const cls  =v=>v>0?'dn':v<0?'up':'fl';        // rising leverage/cost = adverse
+  const hdr=`<div class="hdr2">
+    <div><div class="lab">Preferred notional</div>
+      <div class="big">$${(last.tot/1000).toFixed(2)}B</div>
+      <div class="chg ${cls(dTot)}">${arrow(dTot)} ${Math.abs(dTot).toFixed(0)}M since ${H[0].date}</div></div>
+    <div><div class="lab">Blended cost</div>
+      <div class="big">${last.rate.toFixed(2)}%</div>
+      <div class="chg ${cls(dRate)}">${arrow(dRate)} ${Math.abs(dRate).toFixed(2)}pp \u00b7 weighted by notional</div></div>
+    <div><div class="lab">Annual dividend obligation</div>
+      <div class="big">$${(last.ann/1000).toFixed(2)}B</div>
+      <div class="chg ${cls(dAnn)}">${arrow(dAnn)} ${Math.abs(dAnn).toFixed(0)}M \u00b7 vs ~$32M convert interest</div></div>
+  </div>`;
+
+  // stacked area, converts at the base
+  const SER=['CONV'].concat(STACK_KEYS);
+  const val=(h,k)=> k==='CONV' ? (h.conv??0) : ((h.notional||{})[k]??0);
+  const totals=H.map(h=>SER.reduce((a,k)=>a+val(h,k),0));
+  const ymax=Math.max(...totals)*1.05, W=100, Hh=42;
+  const x=i=>H.length===1?0:i/(H.length-1)*W;
+  let base=H.map(()=>0), areas='';
+  SER.forEach(k=>{
+    const top=H.map((h,i)=>base[i]+val(h,k));
+    const up=top.map((v,i)=>`${x(i)},${Hh-v/ymax*Hh}`).join(' ');
+    const dn=base.map((v,i)=>`${x(H.length-1-i)},${Hh-base[H.length-1-i]/ymax*Hh}`).join(' ');
+    areas+=`<polygon points="${up} ${dn}" fill="${STACK_COL[k]}" fill-opacity="0.55"/>`;
+    base=top;
+  });
+  const chart=`<svg viewBox="0 0 100 42" preserveAspectRatio="none" style="width:100%;height:150px">${areas}</svg>
+    <div class="bandlab"><span>${H[0].date}</span><span>${H[H.length-1].date}</span></div>
+    <div class="legend">${SER.map(k=>`<span><i style="background:${STACK_COL[k]}"></i>${k==='CONV'?'Converts':k}</span>`).join('')}</div>`;
+
+  // small multiples — each on its own scale so small issues stay legible
+  const tiles=STACK_KEYS.map(k=>{
+    const s=H.map(h=>(h.notional||{})[k]).filter(v=>v!=null);
+    if(s.length<2) return '';
+    const lo=Math.min(...s), hi=Math.max(...s), rng=(hi-lo)||1;
+    const dv=s[s.length-1]-s[0];
+    const pts=s.map((v,i)=>`${i/(s.length-1)*100},${18-(v-lo)/rng*15-1.5}`).join(' ');
+    return `<div class="smtile"><div class="t">${k}<span class="d ${dv>0?'dn':dv<0?'up':'fl'}">${arrow(dv)}${Math.abs(dv).toFixed(0)}M</span></div>
+      <svg viewBox="0 0 100 18" preserveAspectRatio="none" style="width:100%;height:26px;margin:3px 0">
+        <polyline fill="none" stroke="${STACK_COL[k]}" stroke-width="1.4" points="${pts}"/></svg>
+      <div class="n">$${s[s.length-1].toFixed(0)}M</div></div>`;
+  }).join('');
+
+  const seeded = H.some(h=>h.seeded)
+    ? '<div class="sub" style="margin-top:10px">Early points are seeded anchors from published issuer figures; live readings accumulate from each run.</div>' : '';
+
+  return `<div class="mod full"><h2>Notional Trend</h2>
+    <div class="sub">Weekly display, daily logging \u00b7 stacked by seniority \u00b7 rising cost = funding shifting toward the expensive instrument</div>
+    ${hdr}${chart}<div class="smx">${tiles}</div>${seeded}</div>`;
+}
+
 function modStress(rows, hist){
   const g = t => rows.find(r=>r.ticker===t) || {};
   const f=g('STRF'), d=g('STRD');
@@ -497,8 +593,10 @@ function modFlow(rows){
 }
 
 function renderCredit(rows, hist){
+  hist = hist || [];
   return `<div class="mods">
     ${modCapitalStack(rows)}
+    ${modNotionalTS(hist)}
     ${modStress(rows, hist)}
     ${modDecomp(rows)}
     ${modPrefCommon(rows, hist)}
@@ -525,7 +623,8 @@ function render(tab){
   // tabs
   document.getElementById('tabs').innerHTML = Object.entries(TABS).map(([k,t])=>{
     const n = DATA.rows.filter(r=>r.tab===k).length;
-    return `<button class="tab ${k===tab?'on':''}" data-tab="${k}">${t.label}<span class="cnt">${n}</span></button>`;
+    const cnt = t.modules ? '' : `<span class="cnt">${n}</span>`;
+    return `<button class="tab ${k===tab?'on':''}" data-tab="${k}">${t.label}${cnt}</button>`;
   }).join('');
   document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
     render(b.dataset.tab); window.scrollTo({top:0});
@@ -533,8 +632,10 @@ function render(tab){
 
   // charts / boards
   // a tab may define boards, charts, or both — render boards first
+  const chartsEl = document.getElementById('charts');
+  chartsEl.className = cfg.modules ? '' : 'charts';   // .charts is a 6-col grid — must not wrap .mods
   if(cfg.modules){
-    document.getElementById('charts').innerHTML = renderCredit(DATA.rows, DATA.history);
+    chartsEl.innerHTML = renderCredit(DATA.rows, DATA.history);
     document.getElementById('groups').innerHTML = '';
     document.getElementById('jnav').innerHTML = '';
     document.getElementById('foot').innerHTML = cfg.foot;
@@ -542,7 +643,7 @@ function render(tab){
   }
   const boardsHTML = (cfg.boards||[]).map(([l,k])=>boardHTML(l,k,rows)).join('');
   const chartsHTML = (cfg.charts||[]).map(c=>c.credit ? creditHTML(c, rows) : c.curve ? curveHTML(c, rows) : chartHTML(c, rows)).join('');
-  document.getElementById('charts').innerHTML = boardsHTML + chartsHTML;
+  chartsEl.innerHTML = boardsHTML + chartsHTML;
 
   // group tables
   const order=[], byG={};
