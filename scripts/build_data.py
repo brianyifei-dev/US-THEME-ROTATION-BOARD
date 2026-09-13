@@ -37,6 +37,10 @@ HIST = ROOT / "docs" / "history.json"
 
 # Cap-weight sector -> equal-weight counterpart. The EW funds are fetched but
 # never emitted as rows; they exist only to compute the Breadth spread.
+# Convertible senior notes outstanding (US$m) — senior to every preferred.
+# Changes only on issuance/buyback, so held as static reference data.
+CONVERT_NOTIONAL_M = 6714.0
+
 EW_PAIRS = {
     "XLRE": "RSPR", "XLU": "RSPU", "XLV": "RSPH", "XLF": "RSPF",
     "XLP":  "RSPS", "XLB": "RSPM", "XLE": "RSPG", "XLI": "RSPN",
@@ -386,6 +390,13 @@ def main():
         hist = json.loads(HIST.read_text()) if HIST.exists() else []
     except Exception:
         hist = []
+    if not hist:            # first run — carry seeded anchors from the snapshot
+        try:
+            if OUT.exists():
+                hist = [h for h in json.loads(OUT.read_text()).get("history", [])
+                        if h.get("seeded")]
+        except Exception:
+            pass
     today = str(spy.index[-1].date())
     hist = [h for h in hist if h.get("date") != today]
     by_t = {r["ticker"]: r for r in rows}
@@ -399,6 +410,10 @@ def main():
         "notional": {t: (by_t.get(t) or {}).get("notional_m")
                      for t in ("STRF","STRC","STRE","STRK","STRD")
                      if (by_t.get(t) or {}).get("notional_m") is not None},
+        "rate":     {t: (by_t.get(t) or {}).get("stated_rate")
+                     for t in ("STRF","STRC","STRE","STRK","STRD")
+                     if (by_t.get(t) or {}).get("stated_rate") is not None},
+        "conv":     CONVERT_NOTIONAL_M,
         "px":       {t: px(t) for t in ("MSTR","STRF","TLT","HYG","LQD","IBIT")
                      if px(t) is not None},
         "flow":     {t: (by_t.get(t) or {}).get("flow_actual_m")
@@ -412,6 +427,7 @@ def main():
         "as_of": str(spy.index[-1].date()),
         "generated_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", ""),
         "ew_pairs": EW_PAIRS,
+        "history": hist[-120:],
         "rows": rows,
     }, indent=1))
 
