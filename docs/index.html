@@ -107,6 +107,40 @@ td.l{text-align:left} tr:hover td{background:#161f2a}
 .mai.up{border-bottom:8px solid var(--up)}
 .mai.dn{border-top:8px solid transparent}
 td.mac{text-align:center}
+.mods{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:26px}
+.mod{background:var(--panel);border:1px solid var(--line);padding:15px 17px 14px;grid-column:span 3}
+.mod.full{grid-column:span 6} .mod.third{grid-column:span 2}
+@media(max-width:1100px){.mods{grid-template-columns:1fr}.mod,.mod.full,.mod.third{grid-column:span 1}}
+.mod h2{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--head);margin-bottom:3px}
+.mod .sub{color:var(--dim);font-size:10.5px;margin-bottom:12px}
+.hero{font-family:var(--sans);font-size:42px;font-weight:800;line-height:1;margin:6px 0 2px}
+.hero small{font-size:14px;font-weight:600;margin-left:6px;color:var(--dim)}
+.regime{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.bands{display:flex;height:5px;margin:12px 0 4px;gap:2px}
+.bands span{flex:1;background:var(--panel2)}
+.bands span.on{background:currentColor}
+.bandlab{display:flex;justify-content:space-between;font-size:9px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+/* capital stack */
+.stk{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+.stkrow{display:grid;grid-template-columns:52px 1fr 96px;align-items:center;gap:10px;font-size:11.5px}
+.stkbar{position:relative;background:var(--panel2);height:100%;min-height:20px}
+.stkbar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(232,179,75,.5),rgba(232,179,75,.15))}
+.stkbar.debt i{background:linear-gradient(90deg,rgba(94,111,130,.55),rgba(94,111,130,.15))}
+.stkbar.junior i{background:linear-gradient(90deg,rgba(240,101,90,.5),rgba(240,101,90,.15))}
+.stkbar.common i{background:linear-gradient(90deg,rgba(62,207,142,.4),rgba(62,207,142,.1))}
+.stkbar b{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:10.5px;color:#e8eef5;font-weight:600;z-index:1}
+.stkrow .tag{color:var(--dim);font-size:10px;text-align:right}
+.stkrow .amt{text-align:right;color:var(--head)}
+/* generic KV rows */
+.kv{display:grid;grid-template-columns:1fr auto;gap:3px 12px;font-size:11.5px;padding:3px 0}
+.kv .k{color:var(--head)} .kv .k em{color:var(--dim);font-style:normal;font-size:10px;margin-left:6px}
+.kv .v{font-weight:600;text-align:right}
+.wf{display:grid;grid-template-columns:104px 1fr 62px;align-items:center;gap:8px;font-size:11.5px;padding:2.5px 0}
+.wf .wlab{color:var(--head)}
+.wtrack{position:relative;height:13px;background:var(--panel2)}
+.wtrack::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)}
+.wbar{position:absolute;top:1px;bottom:1px}
+.wbar.pos{left:50%;background:rgba(62,207,142,.5)} .wbar.neg{right:50%;background:rgba(240,101,90,.5)}
 footer{color:var(--dim);font-size:11px;margin-top:34px;border-top:1px solid var(--line);padding-top:14px;line-height:1.7}
 footer h3{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:var(--head);margin:14px 0 8px}
@@ -154,6 +188,14 @@ const mai = v => {
   if(v==null) return '<span class="na">\u00b7</span>';
   const op = (0.45 + Math.min(Math.abs(v),.08)/.08*0.55).toFixed(2);
   return `<span class="mai ${v>=0?'up':'dn'}" style="opacity:${op}" title="${(v*100).toFixed(2)}%"></span>`;
+};
+const sprd = r => {          // subordination spread: yield less STRF's, in bps
+  const v = r.spread_strf;
+  if(v==null) return '<span class="na">\u00b7</span>';
+  if(r.ticker==='STRF') return '<span class="self" title="Senior-most \u2014 the benchmark">benchmark</span>';
+  const w = Math.min(Math.abs(v), 500)/500*50;
+  return `<span class="brdbar ${v>=0?'neg':'pos'}" style="width:${Math.max(w,1)}%"></span>`
+       + `<span class="brdv ${v>=0?'dn':'up'}" title="Yield less STRF \u2014 wider = more subordination risk priced">${v>=0?'+':''}${v.toFixed(0)}bp</span>`;
 };
 const brd = r => {
   const v = r.breadth_w;
@@ -207,8 +249,22 @@ const TABS = {
       { title:'Core Basket', sub:'Daily %',           tickers:CRYPTO_CORE, key:'daily'  },
       { title:'Core Basket', sub:'Rolling Weekly %',  tickers:CRYPTO_CORE, key:'roll_w' },
       { title:'Core Basket', sub:'Rolling Monthly %', tickers:CRYPTO_CORE, key:'roll_m' },
+      { credit:true },
     ],
-    foot:'<h3>Column definitions \u2014 Crypto tab</h3><dl><dt>Cap</dt><dd>Fund AUM for ETFs, <b>market capitalisation</b> for operating companies. Detected from Yahoo\u2019s quote type; hover any cell to see which is shown. The two are not comparable to each other.</dd><dt>\u25b2 / \u25bc flow</dt><dd>Estimated net creations/redemptions, shown beside AUM on fund rows only: <i>\u0394AUM \u2212 (prior AUM \u00d7 daily return)</i>, i.e. the AUM change not explained by the price move. Daily end-of-day approximation \u2014 directional, not accounting-grade, and noisier than official flow data. Blank until a second consecutive run exists, and blank after any missed run.</dd><dt>Yield</dt><dd>Digital Credit rows only. Trailing-12-month distributions \u00f7 current price, falling back to Yahoo\u2019s stated yield where payment history is short. This is <b>yield-on-price, not yield-on-par</b>: a preferred trading below par shows a higher figure than its nameplate coupon.</dd><dt>RS Rtg</dt><dd>1\u201399 percentile, ranked <b>within this tab only</b>. 95 means top-5% of crypto tickers \u2014 not comparable to an RS Rtg on Macro or Themes.</dd><dt>%52H</dt><dd>Distance below the 52-week high. Always \u2264 0 by construction; 0 = at the high.</dd><dt>Trend</dt><dd>Triangles render green only when price is above that MA. A blank cell means below \u2014 red is deliberately invisible to keep the scan clean.</dd></dl><h3>Chart scope</h3><dl><dt>Top 5</dt><dd>Ranks every ticker on this tab together \u2014 ETFs, treasuries, exchanges, miners and credit compete on one list.</dd><dt>Core Basket</dt><dd>Fixed 21-ticker list: one liquid instrument per underlying theme plus the operating companies. Deliberately excludes basket products (GDLC, BLOK, OWNB, WGMI, MNRS, NCLD) and the credit tranche, so diversified funds don\u2019t mute the signal. Those rows remain in the tables below.</dd></dl><h3>Reading the sections</h3><dl><dt>Miners vs NeoCloud</dt><dd>The spread is the thesis: if CORZ/IREN/APLD outrun MARA/CLSK, the market is repricing hashrate infrastructure as AI datacentre capacity rather than bitcoin production.</dd><dt>IBIT / FBTC / MSBT</dt><dd>All hold spot bitcoin, so prices move near-identically \u2014 RS between them is noise. The <b>flow</b> figures carry the signal: asset-manager vs bank-channel adoption.</dd><dt>Equity volatility</dt><dd>Sections below Spot ETFs are individual companies, routinely moving 10\u201320% daily against 1\u20133% for ETFs. Expect them to dominate both ends of every ranking.</dd></dl><h3 style=\"color:var(--dn)\">Data caveats</h3><dl class=\"caution\"><dt>New listings</dt><dd>Most tickers here launched during 2026. Roll M needs 21 sessions, YTD/1Y and RS Rtg need up to 252 \u2014 these columns stay blank for weeks after listing. Dots are expected, not faults.</dd><dt>HYPG</dt><dd>Unverified at build time; research surfaced only BHYP as a US spot HYPE product. If HYPG returns no data, BHYP is the fallback.</dd><dt>Preferreds</dt><dd>STRC is a variable-rate instrument \u2014 its coupon resets, so a trailing yield lags the current rate. Check the issuer before acting on it.</dd></dl>'
+    foot:'<h3>Column definitions \u2014 Crypto tab</h3><dl><dt>Cap</dt><dd>Fund AUM for ETFs, <b>market capitalisation</b> for operating companies. Detected from Yahoo\u2019s quote type; hover any cell to see which is shown. The two are not comparable to each other.</dd><dt>\u25b2 / \u25bc flow</dt><dd>Estimated net creations/redemptions, shown beside AUM on fund rows only: <i>\u0394AUM \u2212 (prior AUM \u00d7 daily return)</i>, i.e. the AUM change not explained by the price move. Daily end-of-day approximation \u2014 directional, not accounting-grade, and noisier than official flow data. Blank until a second consecutive run exists, and blank after any missed run.</dd><dt>Yield</dt><dd>Digital Credit rows only. Trailing-12-month distributions \u00f7 current price, falling back to Yahoo\u2019s stated yield where payment history is short. This is <b>yield-on-price, not yield-on-par</b>: a preferred trading below par shows a higher figure than its nameplate coupon.</dd><dt>RS Rtg</dt><dd>1\u201399 percentile, ranked <b>within this tab only</b>. 95 means top-5% of crypto tickers \u2014 not comparable to an RS Rtg on Macro or Themes.</dd><dt>%52H</dt><dd>Distance below the 52-week high. Always \u2264 0 by construction; 0 = at the high.</dd><dt>Trend</dt><dd>Triangles render green only when price is above that MA. A blank cell means below \u2014 red is deliberately invisible to keep the scan clean.</dd></dl><h3>Chart scope</h3><dl><dt>Top 5</dt><dd>Ranks every ticker on this tab together \u2014 ETFs, treasuries, exchanges, miners and credit compete on one list.</dd><dt>Core Basket</dt><dd>Fixed 21-ticker list: one liquid instrument per underlying theme plus the operating companies. Deliberately excludes basket products (GDLC, BLOK, OWNB, WGMI, MNRS, NCLD) and the credit tranche, so diversified funds don\u2019t mute the signal. Those rows remain in the tables below.</dd></dl><h3>MSTR Credit Stack</h3><dl><dt>Why it matters</dt><dd>Strategy\u2019s listed preferreds price the market\u2019s confidence in the largest corporate bitcoin balance sheet. Stress here reprices <b>every</b> DAT name, not just MSTR.</dd><dt>Yield</dt><dd>Stated annual $ \u00f7 price (\u0024100 stated amount). Exact for the three fixed series; <b>STRC is variable</b> \u2014 its rate is reviewed monthly to hold the price near par, so <b>the coupon is the signal, not the price</b>. Update <code>stated_rate</code> in universe.json when it resets.</dd><dt>vs STRF</dt><dd>Subordination spread in bps: each instrument\u2019s yield less the senior-most. STRD\u2212STRF is the headline \u2014 the junior claim is <b>non-cumulative</b>, so a missed dividend is forfeited outright and it blows out first under solvency stress.</dd><dt>Confounds</dt><dd>These are perpetuals, so price moves with long rates as well as credit. <b>STRF\u2212TLT</b> strips the rate move; <b>STRF\u2212HYG</b> separates MSTR-specific stress from a broad credit risk-off. Read the level only alongside both.</dd><dt>STRK</dt><dd>Convertible at 0.1 MSTR (\u00241,000 effective). Deeply out of the money, but option time value still contaminates it \u2014 the least clean credit read of the four.</dd></dl><h3>Reading the sections</h3><dl><dt>Miners vs NeoCloud</dt><dd>The spread is the thesis: if CORZ/IREN/APLD outrun MARA/CLSK, the market is repricing hashrate infrastructure as AI datacentre capacity rather than bitcoin production.</dd><dt>IBIT / FBTC / MSBT</dt><dd>All hold spot bitcoin, so prices move near-identically \u2014 RS between them is noise. The <b>flow</b> figures carry the signal: asset-manager vs bank-channel adoption.</dd><dt>Equity volatility</dt><dd>Sections below Spot ETFs are individual companies, routinely moving 10\u201320% daily against 1\u20133% for ETFs. Expect them to dominate both ends of every ranking.</dd></dl><h3 style=\"color:var(--dn)\">Data caveats</h3><dl class=\"caution\"><dt>New listings</dt><dd>Most tickers here launched during 2026. Roll M needs 21 sessions, YTD/1Y and RS Rtg need up to 252 \u2014 these columns stay blank for weeks after listing. Dots are expected, not faults.</dd><dt>HYPG</dt><dd>Unverified at build time; research surfaced only BHYP as a US spot HYPE product. If HYPG returns no data, BHYP is the fallback.</dd><dt>Preferreds</dt><dd>STRC is a variable-rate instrument \u2014 its coupon resets, so a trailing yield lags the current rate. Check the issuer before acting on it.</dd></dl>'
+  },
+  credit: {
+    label:'Credit',
+    modules:true,
+    foot:'<h3>What this tab is</h3><dl>'
+      +'<dt>Purpose</dt><dd>Strategy\u2019s listed preferreds price confidence in the largest corporate bitcoin balance sheet. Stress here reprices <b>every</b> DAT name, so this is a leading indicator for that whole section \u2014 not just for MSTR.</dd>'
+      +'<dt>Yield</dt><dd>Stated annual $ \u00f7 price on $100 stated amount. Exact for the fixed series. <b>STRC is variable</b>, reviewed monthly to hold the price near par \u2014 so its <b>coupon is the signal, not its price</b>. The pipeline scrapes the current rate from strategy.com each run.</dd>'
+      +'<dt>\u25b2\u25bc on the stack</dt><dd>Change in notional since the prior run \u2014 issuance or buyback. Rising notional = funding bitcoin with credit, leverage increasing. Falling = deleveraging. Invisible in price.</dd>'
+      +'<dt>Confounds</dt><dd>Perpetuals move with long rates as well as credit, and drop mechanically on ex-dividend (semi-monthly for STRC). The Decomposition module separates rates, systemic credit and MSTR-specific residual \u2014 read the stress number alongside it, never alone.</dd>'
+      +'<dt>STRE</dt><dd>Euro-denominated, Luxembourg Euro MTF \u2014 <b>no price feed</b>, so notional and rate only. Included because it is a real part of the stack and has grown from \u20ac775M to $900.7M, i.e. active euro issuance.</dd>'
+      +'<dt>STRK</dt><dd>Convertible at 0.1 MSTR. Deeply out of the money, but option time value still contaminates it \u2014 the least clean credit read.</dd>'
+      +'<dt>Not collateralised</dt><dd>Per the issuer: the preferreds are <b>not</b> secured by bitcoin and hold only a preferred claim on residual assets. Dividends require board declaration.</dd>'
+      +'</dl>'
   },
   themes: {
     label:'Themes',
@@ -281,6 +337,176 @@ function curveHTML(cfg, rows){
   return `<div class="chart wide curve">${head}${bars}${sigs}</div>`;
 }
 
+function creditHTML(cfg, rows){
+  const head = `<h2>MSTR Credit Stack <span style="color:var(--dim);font-weight:400;letter-spacing:0;text-transform:none"> yield by seniority</span></h2>`;
+  const st = rows.filter(r=>r.group==='MSTR Credit Stack' && r.yield!=null)
+                 .sort((a,b)=>(a.credit_rank??9)-(b.credit_rank??9));
+  if(!st.length) return `<div class="chart wide curve">${head}<div class="crow"><span class="cnm na">awaiting live data</span></div></div>`;
+  const max = Math.max(...st.map(r=>r.yield), 1e-9);
+  const KIND = {senior:'senior',variable:'variable',hybrid:'hybrid',junior:'junior'};
+  const bars = st.map(r=>{
+    const w = r.yield/max*100;
+    const j = r.pref_kind==='junior';
+    return `<div class="crow"><span class="cnm"><b>${r.ticker}</b></span><span class="cmat">${KIND[r.pref_kind]||''}</span>
+      <span class="ctrack"><span class="cbar ${j?'neg':'pos'}" style="left:0;width:${Math.max(w*0.5,1)}%"></span></span>
+      <span class="cval ${j?'dn':'up'}">${(r.yield*100).toFixed(1)}%</span></div>`;
+  }).join('');
+  const g = t => st.find(r=>r.ticker===t) || {};
+  const sig = [];
+  const sub = g('STRD').spread_strf;
+  if(sub!=null) sig.push(['Subordination (STRD\u2212STRF)',
+      sub>300?'junior claim stressed':sub>150?'normal':'compressed', sub, 'bp']);
+  const strf = g('STRF');
+  if(strf.credit_w!=null) sig.push(['Credit ex-rates (STRF\u2212TLT)',
+      strf.credit_w>0?'repairing':'deteriorating', strf.credit_w*100, '%']);
+  if(strf.idio_w!=null) sig.push(['Idiosyncratic (STRF\u2212HYG)',
+      strf.idio_w>0?'outperforming junk credit':'underperforming \u2014 check if systemic', strf.idio_w*100, '%']);
+  const sigs = sig.length ? '<div class="csplit"></div>' + sig.map(([n,tag,v,u])=>
+      `<div class="sigrow"><span class="sn">${n}<em>${tag}</em></span>
+       <span class="sv ${u==='bp' ? (v>300?'yup':'ydn') : (v>=0?'ydn':'yup')}">${v>=0?'+':''}${v.toFixed(u==='bp'?0:2)}${u}</span></div>`).join('') : '';
+  return `<div class="chart wide curve">${head}${bars}${sigs}</div>`;
+}
+
+
+// ══ CREDIT TAB — purpose-built modules, not tables ═══════════════════════════
+const fmtM = v => v==null ? '—' : (Math.abs(v)>=1000 ? (v/1000).toFixed(2)+'B' : v.toFixed(0)+'M');
+const sgn  = v => (v>=0?'+':'') + v.toFixed(v>=100||v<=-100?0:2);
+
+function modCapitalStack(rows){
+  const st = rows.filter(r=>r.group==='MSTR Credit Stack' && r.notional_m!=null)
+                 .sort((a,b)=>(a.credit_rank??9)-(b.credit_rank??9));
+  const CONV = 6714;                       // convertible notes, senior to all preferreds
+  const mstr = rows.find(r=>r.ticker==='MSTR');
+  const common = mstr?.mcap ? mstr.mcap/1e6 : null;
+  const all = [{t:'CONV',lab:'Convertible notes',n:CONV,cls:'debt',tag:'senior unsecured'}]
+    .concat(st.map(r=>({t:r.ticker,lab:r.theme,n:r.notional_m,
+       cls:r.pref_kind==='junior'?'junior':'', tag:r.pref_kind, r})))
+    .concat(common?[{t:'MSTR',lab:'Common equity',n:common,cls:'common',tag:'residual claim'}]:[]);
+  const max = Math.max(...all.map(x=>x.n));
+  const body = all.map(x=>{
+    const y = x.r?.yield!=null ? (x.r.yield*100).toFixed(1)+'%' : '';
+    const fl = x.r?.notional_flow_m!=null && Math.abs(x.r.notional_flow_m)>0.05
+      ? ` <span class="${x.r.notional_flow_m>=0?'up':'dn'}">${x.r.notional_flow_m>=0?'\u25b2':'\u25bc'}${Math.abs(x.r.notional_flow_m).toFixed(0)}M</span>` : '';
+    return `<div class="stkrow">
+      <span class="tk">${x.t}</span>
+      <span class="stkbar ${x.cls}"><i style="width:${x.n/max*100}%"></i><b>${x.lab}</b></span>
+      <span class="amt">$${fmtM(x.n)}${y?' · '+y:''}${fl}</span></div>`;
+  }).join('');
+  const tot = st.reduce((a,r)=>a+r.notional_m,0);
+  return `<div class="mod full"><h2>Capital Stack</h2>
+    <div class="sub">Seniority top to bottom, scaled by notional \u00b7 preferred total $${fmtM(tot)} \u00b7 \u25b2\u25bc = issuance / buyback since prior run</div>
+    <div class="stk">${body}</div></div>`;
+}
+
+function modStress(rows, hist){
+  const g = t => rows.find(r=>r.ticker===t) || {};
+  const f=g('STRF'), d=g('STRD');
+  const bp = (f.yield!=null && d.yield!=null) ? (d.yield-f.yield)*10000 : null;
+  const BANDS=[['compressed',0,100],['normal',100,250],['elevated',250,400],['stressed',400,1e9]];
+  let reg='—', col='var(--dim)', idx=-1;
+  if(bp!=null){ idx=BANDS.findIndex(([,lo,hi])=>bp>=lo&&bp<hi);
+    reg=BANDS[idx][0]; col=['var(--up)','var(--head)','var(--amber)','var(--dn)'][idx]; }
+  const spark = (hist||[]).slice(-60).map(x=>{
+    const a=x.yield?.STRF, b=x.yield?.STRD;
+    return (a!=null&&b!=null) ? (b-a)*10000 : null; }).filter(v=>v!=null);
+  let sp='';
+  if(spark.length>2){
+    const lo=Math.min(...spark), hi=Math.max(...spark), rng=(hi-lo)||1;
+    sp = `<svg viewBox="0 0 100 24" preserveAspectRatio="none" style="width:100%;height:24px;margin-top:10px">
+      <polyline fill="none" stroke="${col}" stroke-width="1.2" points="${
+      spark.map((v,i)=>`${i/(spark.length-1)*100},${24-(v-lo)/rng*22-1}`).join(' ')}"/></svg>
+      <div class="bandlab"><span>${spark.length}d ago</span><span>today</span></div>`;
+  } else {
+    sp = `<div class="sub" style="margin:10px 0 0">history builds from the next run \u2014 sparkline appears once 3+ days are logged</div>`;
+  }
+  return `<div class="mod third"><h2>Credit Stress</h2>
+    <div class="sub">STRD \u2212 STRF subordination spread</div>
+    <div class="hero" style="color:${col}">${bp==null?'\u2014':(bp>=0?'+':'')+bp.toFixed(0)}<small>bp</small></div>
+    <div class="regime" style="color:${col}">${reg}</div>
+    <div class="bands" style="color:${col}">${BANDS.map((_,i)=>`<span class="${i<=idx?'on':''}"></span>`).join('')}</div>
+    <div class="bandlab"><span>0</span><span>100</span><span>250</span><span>400+</span></div>
+    ${sp}</div>`;
+}
+
+function modDecomp(rows){
+  const g=t=>rows.find(r=>r.ticker===t)||{};
+  const f=g('STRF'), tlt=g('TLT'), hyg=g('HYG');
+  const parts=[];
+  if(tlt.roll_w!=null) parts.push(['Rates (TLT)', tlt.roll_w*100, 'the move explained by long rates']);
+  if(hyg.roll_w!=null && tlt.roll_w!=null)
+    parts.push(['Systemic credit', (hyg.roll_w-tlt.roll_w)*100, 'junk credit beyond rates']);
+  if(f.roll_w!=null && hyg.roll_w!=null)
+    parts.push(['Idiosyncratic', (f.roll_w-hyg.roll_w)*100, 'MSTR-specific residual']);
+  if(f.roll_w!=null) parts.push(['STRF total', f.roll_w*100, 'sum of the above']);
+  if(!parts.length) return `<div class="mod third"><h2>Decomposition</h2><div class="sub">awaiting live data</div></div>`;
+  const max=Math.max(...parts.map(p=>Math.abs(p[1])),0.01);
+  return `<div class="mod third"><h2>Decomposition</h2>
+    <div class="sub">STRF weekly move split by driver \u2014 is it MSTR, or the market?</div>
+    ${parts.map(([l,v,tip],i)=>`<div class="wf" title="${tip}">
+      <span class="wlab" style="${i===parts.length-1?'color:#e8eef5;font-weight:600':''}">${l}</span>
+      <span class="wtrack"><span class="wbar ${v>=0?'pos':'neg'}" style="width:${Math.abs(v)/max*50}%"></span></span>
+      <span class="cval ${v>=0?'up':'dn'}">${sgn(v)}%</span></div>`).join('')}</div>`;
+}
+
+function modPrefCommon(rows, hist){
+  const g=t=>rows.find(r=>r.ticker===t)||{};
+  const m=g('MSTR'), f=g('STRF');
+  const R=[['Daily','daily'],['Rolling weekly','roll_w'],['Rolling monthly','roll_m']];
+  const body=R.map(([lab,k])=>{
+    if(m[k]==null||f[k]==null) return '';
+    const gap=(m[k]-f[k])*100;
+    const tag = gap>2 ? 'common leading \u2014 froth without credit repair'
+              : gap<-2 ? 'preferred leading \u2014 credit repairing first' : 'in line';
+    return `<div class="kv"><span class="k">${lab}<em>${tag}</em></span>
+      <span class="v ${gap>=0?'up':'dn'}">${sgn(gap)}%</span></div>`;
+  }).join('');
+  return `<div class="mod third"><h2>Preferred vs Common</h2>
+    <div class="sub">MSTR less STRF \u2014 divergence is the signal</div>
+    ${body||'<div class="sub">awaiting live data</div>'}</div>`;
+}
+
+function modIssuer(rows){
+  const peers=rows.filter(r=>['STRF','STRC','STRK','STRD','BMNP','SATA'].includes(r.ticker) && r.yield!=null)
+                  .sort((a,b)=>b.yield-a.yield);
+  if(!peers.length) return `<div class="mod"><h2>Cross-Issuer Credit</h2><div class="sub">awaiting live data</div></div>`;
+  const max=Math.max(...peers.map(r=>r.yield));
+  return `<div class="mod"><h2>Cross-Issuer Credit</h2>
+    <div class="sub">MSTR stack vs other crypto-treasury paper \u2014 idiosyncratic or sector-wide?</div>
+    ${peers.map(r=>{const mstr=r.group==='MSTR Credit Stack';
+      return `<div class="wf"><span class="wlab"><b class="tk">${r.ticker}</b> <span style="color:var(--dim);font-size:10px">${mstr?'MSTR':'peer'}</span></span>
+      <span class="wtrack" style="background:var(--panel2)"><span class="wbar pos" style="left:0;background:${mstr?'rgba(232,179,75,.5)':'rgba(94,111,130,.5)'};width:${r.yield/max*100}%"></span></span>
+      <span class="cval">${(r.yield*100).toFixed(1)}%</span></div>`;}).join('')}</div>`;
+}
+
+function modFlow(rows){
+  const F=['IBIT','FBTC','MSBT'].map(t=>rows.find(r=>r.ticker===t)).filter(Boolean);
+  const has=F.some(r=>r.flow_actual_m!=null);
+  const body = has ? F.map(r=>{
+      const v=r.flow_actual_m;
+      return `<div class="kv"><span class="k">${r.ticker}<em>${r.theme||''}</em></span>
+        <span class="v ${v>=0?'up':'dn'}">${v==null?'\u2014':sgn(v)+'M'}</span></div>`;}).join('')
+    : '<div class="sub">Farside flows populate on the next scheduled run</div>';
+  const g=t=>rows.find(r=>r.ticker===t)||{};
+  const f=g('STRF');
+  const cross = f.roll_w!=null
+    ? `<div class="csplit"></div><div class="kv"><span class="k">STRF weekly<em>credit direction</em></span>
+       <span class="v ${f.roll_w>=0?'up':'dn'}">${sgn(f.roll_w*100)}%</span></div>` : '';
+  return `<div class="mod"><h2>Spot ETF Flow Cross-Check</h2>
+    <div class="sub">Net creations/redemptions (US$m) \u2014 is money choosing spot over leveraged corporate?</div>
+    ${body}${cross}</div>`;
+}
+
+function renderCredit(rows, hist){
+  return `<div class="mods">
+    ${modCapitalStack(rows)}
+    ${modStress(rows, hist)}
+    ${modDecomp(rows)}
+    ${modPrefCommon(rows, hist)}
+    ${modIssuer(rows)}
+    ${modFlow(rows)}
+  </div>`;
+}
+
 function boardHTML(label, key, rows){
   const top = rows.filter(r=>r[key]!=null && r.price!=null).sort((a,b)=>b[key]-a[key]).slice(0,5);
   if(!top.length) return `<div class="chart"><h2>Top 5 · <em>${label}</em></h2><div class="lrow"><span class="nm na">awaiting live data</span></div></div>`;
@@ -307,8 +533,15 @@ function render(tab){
 
   // charts / boards
   // a tab may define boards, charts, or both — render boards first
+  if(cfg.modules){
+    document.getElementById('charts').innerHTML = renderCredit(DATA.rows, DATA.history);
+    document.getElementById('groups').innerHTML = '';
+    document.getElementById('jnav').innerHTML = '';
+    document.getElementById('foot').innerHTML = cfg.foot;
+    return;
+  }
   const boardsHTML = (cfg.boards||[]).map(([l,k])=>boardHTML(l,k,rows)).join('');
-  const chartsHTML = (cfg.charts||[]).map(c=>c.curve ? curveHTML(c, rows) : chartHTML(c, rows)).join('');
+  const chartsHTML = (cfg.charts||[]).map(c=>c.credit ? creditHTML(c, rows) : c.curve ? curveHTML(c, rows) : chartHTML(c, rows)).join('');
   document.getElementById('charts').innerHTML = boardsHTML + chartsHTML;
 
   // group tables
@@ -320,7 +553,7 @@ function render(tab){
       <thead>
       <tr class="bands"><th colspan="5" class="blank"></th><th colspan="4">Relative Strength (v. SPY)</th><th colspan="7" class="secL">Performance${g==='Sectors'?' &amp; Breadth':''}</th><th colspan="5" class="secL trend">Trend Indicators</th></tr>
       <tr>${COLS.map(([k,l0],ci)=>{
-        const l = (k==='breadth_w' && g!=='Sectors') ? ''
+        const l = (k==='breadth_w') ? (g==='Sectors' ? l0 : g==='MSTR Credit Stack' ? 'vs STRF' : '')
                 : (k==='pair' && g==='Digital Credit') ? 'Yield'
                 : l0;
         const secStart = (k==='roll_w'||k==='vs10');
@@ -373,7 +606,7 @@ function render(tab){
         <td class="rsc">${isBench?'<span class="self">benchmark</span>':rsb(r.rs_1m)}</td>
         <td>${pct(r.intraday)}</td><td>${pct(r.daily)}</td>
         <td class="secL">${pct(r.roll_w)}</td>
-        <td class="brd">${brd(r)}</td>
+        <td class="brd">${r.group==='MSTR Credit Stack' ? sprd(r) : brd(r)}</td>
         <td>${pct(r.roll_m)}</td>
         <td class="hidem">${pct1(r.ytd)}</td><td class="hidem">${pct(r.w1)}</td>
         <td class="hidem">${pct(r.m1)}</td><td class="hidem">${pct1(r.y1)}</td>
