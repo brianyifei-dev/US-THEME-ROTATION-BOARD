@@ -33,6 +33,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 UNIVERSE = json.loads((ROOT / "scripts" / "universe.json").read_text())
 OUT = ROOT / "docs" / "snapshot.json"
+HIST = ROOT / "docs" / "history.json"
 
 # Cap-weight sector -> equal-weight counterpart. The EW funds are fetched but
 # never emitted as rows; they exist only to compute the Breadth spread.
@@ -84,6 +85,72 @@ def series_for(t: str, hist):
             close, open_ = sq["Close"], sq["Open"]
 
     return close, open_
+
+
+def fetch_strategy_pages() -> dict:
+    """Scrape the static fields from strategy.com/<tkr>/learn.
+    Price/yield/BTC Rating are JS-rendered and NOT available here — only
+    notional, dividend rate and the dividend calendar are static HTML."""
+    import re, requests
+    out = {}
+    for t in ("strf", "strc", "stre", "strk", "strd"):
+        try:
+            r = requests.get(f"https://www.strategy.com/{t}/learn", timeout=20,
+                             headers={"User-Agent": "Mozilla/5.0"})
+            if r.status_code != 200:
+                continue
+            h = re.sub(r"<[^>]+>", " ", r.text)
+            rec = {}
+            m = re.search(r"Notional \(\$M\)\s*\$?([\d,]+\.?\d*)", h)
+            if m:
+                rec["notional_m"] = float(m.group(1).replace(",", ""))
+            m = re.search(r"Dividend \((?:Fixed|Variable)\)\s*([\d.]+)%", h)
+            if m:
+                rec["stated_rate"] = float(m.group(1))
+            m = re.search(r"Record Date\s*(\d{1,2}/\d{1,2}/\d{4})", h)
+            if m:
+                rec["record_date"] = m.group(1)
+            m = re.search(r"(?:Next )?Payout Date\s*(\d{1,2}/\d{1,2}/\d{4})", h)
+            if m:
+                rec["payout_date"] = m.group(1)
+            if rec:
+                out[t.upper()] = rec
+        except Exception:
+            continue
+    return out
+
+
+def fetch_farside() -> dict:
+    """Per-issuer daily ETF flows (US$m) from Farside. Real creations/redemptions,
+    materially better than the AUM-derived estimate. Falls through silently."""
+    out = {}
+    try:
+        import pandas as pd, requests
+        for url in ("https://farside.co.uk/btc/", "https://farside.co.uk/eth/",
+                    "https://farside.co.uk/sol/", "https://farside.co.uk/hyp/"):
+            try:
+                html = requests.get(url, timeout=25,
+                                    headers={"User-Agent": "Mozilla/5.0"}).text
+                for tbl in pd.read_html(html):
+                    tbl.columns = [str(c).split(".")[0].strip().upper() for c in tbl.columns]
+                    known = [c for c in tbl.columns if c.isalpha() and 3 <= len(c) <= 5]
+                    if len(known) < 3:
+                        continue
+                    for _, row in tbl.iloc[::-1].iterrows():
+                        got = False
+                        for c in known:
+                            v = str(row[c]).replace(",", "").replace("(", "-").replace(")", "")
+                            try:
+                                out.setdefault(c, float(v)); got = True
+                            except ValueError:
+                                pass
+                        if got:
+                            break
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return out
 
 
 # ─── metrics ─────────────────────────────────────────────────────────────────
@@ -193,6 +260,20 @@ def main():
     except Exception:
         pass
 
+    strategy = fetch_strategy_pages()
+    farside  = fetch_farside()
+    print(f"strategy.com: {len(strategy)} pages | farside: {len(farside)} tickers")
+
+    # prior history -> notional change (issuance / buyback flow on the credit stack)
+    prior_notional = {}
+    try:
+        if HIST.exists():
+            h = json.loads(HIST.read_text())
+            if h:
+                prior_notional = h[-1].get("notional", {})
+    except Exception:
+        pass
+
     rows = []
     for u in UNIVERSE:
         t = u["ticker"]
@@ -204,7 +285,13 @@ def main():
 
         # Annualised distribution rate for preferred / credit securities.
         # TTM dividends over price, falling back to Yahoo's stated yield.
-        if u.get("show_yield") and m.get("price"):
+        # Listed preferreds: yield = stated annual $ / price. Exact, and immune to
+        # Yahoo's patchy preferred dividend history (STRC pays semi-monthly and is
+        # frequently mis-recorded by aggregators).
+        if u.get("stated_rate") and m.get("price"):
+            annual = float(u["stated_rate"]) / 100.0 * float(u.get("stated_amount", 100.0))
+            m["yield"] = round(annual / m["price"], 5)
+        elif u.get("show_yield") and m.get("price"):
             try:
                 import yfinance as yf
                 tk = yf.Ticker(t)
@@ -227,6 +314,22 @@ def main():
                 pass
 
         row = {**u, **m}
+
+        # live issuer data overrides the static universe values
+        s = strategy.get(t)
+        if s:
+            row.update(s)
+            pn = prior_notional.get(t)
+            if pn and s.get("notional_m") is not None:
+                row["notional_flow_m"] = round(s["notional_m"] - pn, 2)
+            # yield must be recomputed if the rate reset
+            if s.get("stated_rate") and m.get("price"):
+                row["yield"] = round(s["stated_rate"] / 100.0 * 100.0 / m["price"], 5)
+
+        # real per-issuer ETF flow beats the AUM-derived estimate
+        if t in farside:
+            row["flow_actual_m"] = farside[t]
+
         # Net flow ~ change in AUM minus the portion explained by the price move.
         # Daily EOD approximation: directional, not accounting-grade.
         pa, ret = prior.get(t), m.get("daily")
@@ -244,6 +347,28 @@ def main():
 
         rows.append(row)
 
+    # ── credit spreads for the MSTR preferred stack ─────────────────────────
+    by_t = {r["ticker"]: r for r in rows}
+    strf = by_t.get("STRF", {})
+    for r in rows:
+        if r.get("group") != "MSTR Credit Stack" or r.get("yield") is None:
+            continue
+        # subordination spread: each instrument's yield less the senior-most (STRF)
+        if strf.get("yield") is not None:
+            r["spread_strf"] = round((r["yield"] - strf["yield"]) * 10000, 1)   # bps
+    # credit ex-rates: STRF total return less TLT (similar duration, no credit risk)
+    tlt = by_t.get("TLT", {})
+    if strf and tlt:
+        for src, dst in (("roll_w", "credit_w"), ("roll_m", "credit_m")):
+            if strf.get(src) is not None and tlt.get(src) is not None:
+                strf[dst] = round(strf[src] - tlt[src], 6)
+    # idiosyncratic vs systemic: STRF less high-yield credit
+    hyg = by_t.get("HYG", {})
+    if strf and hyg:
+        for src, dst in (("roll_w", "idio_w"), ("roll_m", "idio_m")):
+            if strf.get(src) is not None and hyg.get(src) is not None:
+                strf[dst] = round(strf[src] - hyg[src], 6)
+
     # IBD-style RS Rating (1-99), ranked WITHIN each tab. Ranking globally would let
     # single crypto equities (10-20% daily moves) dominate both extremes and compress
     # every ETF on the other tabs toward the middle.
@@ -255,6 +380,33 @@ def main():
             n = len(ranked)
             for rank, (i, _) in enumerate(ranked):
                 rows[i]["rs_rating"] = max(1, min(99, round(rank / (n - 1) * 98 + 1)))
+
+    # ── append today's reading to the rolling history ───────────────────────
+    try:
+        hist = json.loads(HIST.read_text()) if HIST.exists() else []
+    except Exception:
+        hist = []
+    today = str(spy.index[-1].date())
+    hist = [h for h in hist if h.get("date") != today]
+    by_t = {r["ticker"]: r for r in rows}
+    def px(t):
+        return (by_t.get(t) or {}).get("price")
+    def yl(t):
+        return (by_t.get(t) or {}).get("yield")
+    hist.append({
+        "date": today,
+        "yield":    {t: yl(t) for t in ("STRF","STRC","STRK","STRD") if yl(t) is not None},
+        "notional": {t: (by_t.get(t) or {}).get("notional_m")
+                     for t in ("STRF","STRC","STRE","STRK","STRD")
+                     if (by_t.get(t) or {}).get("notional_m") is not None},
+        "px":       {t: px(t) for t in ("MSTR","STRF","TLT","HYG","LQD","IBIT")
+                     if px(t) is not None},
+        "flow":     {t: (by_t.get(t) or {}).get("flow_actual_m")
+                     for t in ("IBIT","FBTC","MSBT")
+                     if (by_t.get(t) or {}).get("flow_actual_m") is not None},
+    })
+    hist = hist[-400:]                      # ~18 months
+    HIST.write_text(json.dumps(hist, indent=1))
 
     OUT.write_text(json.dumps({
         "as_of": str(spy.index[-1].date()),
